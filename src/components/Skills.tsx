@@ -60,7 +60,7 @@ export default function Skills() {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
             <p className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 mb-2">
-              4+
+              6+
             </p>
             <p className="text-gray-400">Proyectos completados</p>
           </div>

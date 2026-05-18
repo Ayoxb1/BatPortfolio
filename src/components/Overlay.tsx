@@ -11,7 +11,7 @@ export default function Overlay() {
       if (!container) return;
 
       const rect = container.getBoundingClientRect();
-      const progress = Math.max(0, Math.min(1, -rect.top / (rect.scrollHeight - window.innerHeight)));
+      const progress = Math.max(0, Math.min(1, -rect.top / (container.scrollHeight - window.innerHeight)));
       setScrollProgress(progress);
     };
 

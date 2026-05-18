@@ -14,35 +14,51 @@ interface Project {
 const projects: Project[] = [
   {
     id: '1',
-    title: 'Sistema de Gestión de Barbería',
-    description: 'SaaS profesional completo con dashboard, gestión de reservas, historial de clientes y analytics en tiempo real. Desarrollado con arquitectura CRUD y bases de datos relacionales.',
-    tags: ['Java', 'JavaFX', 'SQL', 'CRUD'],
-    image: 'linear-gradient(135deg, from-blue-600 to-cyan-600)',
+    title: 'BarberSaaS — Gestión de Barbería',
+    description: 'SaaS profesional con dashboard completo, gestión de reservas, historial de clientes y analytics en tiempo real. Arquitectura CRUD con base de datos relacional.',
+    tags: ['Java', 'JavaFX', 'SQL', 'SaaS', 'CRUD'],
+    image: 'linear-gradient(135deg, #1d4ed8, #06b6d4)',
     link: 'https://barber-saas-pi.vercel.app',
   },
   {
     id: '2',
-    title: 'Webs Profesionales de Marketing',
-    description: 'Dos sitios web profesionales con diseño responsivo, animaciones scroll avanzadas, formularios de contacto integrados y enfoque en conversión y experiencia de usuario.',
-    tags: ['React', 'Tailwind', 'Framer Motion', 'Landing Pages'],
-    image: 'linear-gradient(135deg, from-orange-500 to-pink-600)',
-    link: 'https://bowl-food-web.vercel.app',
+    title: 'GymTrack — App de Gimnasio',
+    description: 'Aplicación para seguimiento de entrenamientos, gestión de rutinas personalizadas y control de progreso. Interfaz moderna con experiencia de usuario optimizada.',
+    tags: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript'],
+    image: 'linear-gradient(135deg, #ea580c, #dc2626)',
+    link: 'https://centro-deportivo-pedro-jv-illa.vercel.app',
   },
   {
     id: '3',
-    title: 'Proyecto Ramadan Deen',
-    description: 'Aplicación fullstack para seguimiento de prácticas islámicas, gestión de comunidad y recursos educativos. Stack moderno con base de datos y autenticación.',
-    tags: ['Full Stack', 'Node.js', 'MongoDB', 'React'],
-    image: 'linear-gradient(135deg, from-emerald-500 to-teal-600)',
-    link: 'https://ramadan-deen.vercel.app',
+    title: 'BowlWeb — Tienda de Fruta Online',
+    description: 'E-commerce de productos frescos con diseño responsivo, animaciones scroll avanzadas, catálogo de productos y formularios de contacto integrados.',
+    tags: ['React', 'Tailwind', 'Framer Motion', 'E-commerce'],
+    image: 'linear-gradient(135deg, #16a34a, #84cc16)',
+    link: 'https://bowl-food-web.vercel.app/',
   },
   {
     id: '4',
-    title: 'Automatización con n8n',
-    description: 'Workflows inteligentes para automatización de procesos empresariales, integración de APIs, procesamiento de datos y optimización de tareas repetitivas.',
-    tags: ['n8n', 'Automation', 'APIs', 'Workflows'],
-    image: 'linear-gradient(135deg, from-purple-600 to-indigo-600)',
+    title: 'Aventura Gráfica — Juego Web',
+    description: 'Juego de aventura gráfica interactivo desarrollado para navegador. Narrativa ramificada, gestión de estados del juego y diseño visual inmersivo.',
+    tags: ['JavaScript', 'Canvas', 'Game Dev', 'HTML5'],
+    image: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
     link: 'https://github.com/Ayoxb1',
+  },
+  {
+    id: '5',
+    title: 'Proyectos DAM — Java & JavaFX',
+    description: 'Colección de aplicaciones de escritorio desarrolladas en el ciclo DAM: gestión de inventarios, sistema de empleados y CRUD con JavaFX y conexión a base de datos.',
+    tags: ['Java', 'JavaFX', 'FXML', 'JDBC', 'SQL'],
+    image: 'linear-gradient(135deg, #b45309, #92400e)',
+    link: 'https://github.com/Ayoxb1',
+  },
+  {
+    id: '6',
+    title: 'Ramadan Deen — App Fullstack',
+    description: 'Aplicación fullstack para seguimiento de prácticas, gestión de comunidad y recursos educativos. Stack moderno con base de datos y autenticación.',
+    tags: ['Full Stack', 'Node.js', 'MongoDB', 'React'],
+    image: 'linear-gradient(135deg, #0d9488, #059669)',
+    link: 'https://ramadan-deen.vercel.app',
   },
 ];
 
@@ -63,7 +79,7 @@ export default function Projects() {
       </div>
 
       {/* Grid */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project) => (
           <div
             key={project.id}
