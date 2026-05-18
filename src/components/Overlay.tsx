@@ -19,6 +19,15 @@ export default function Overlay() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowScrollIndicator(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Calcular opacidad y posición de cada sección de texto
   const getOpacity = (sectionStart: number, sectionEnd: number) => {
     if (scrollProgress < sectionStart) return 0;
@@ -39,6 +48,20 @@ export default function Overlay() {
 
   return (
     <div className="scrolly-container fixed inset-0 pointer-events-none z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0 px-6 md:px-0">
+      {/* Indicador de Scroll Global */}
+      <div 
+        className={`absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 animate-float transition-opacity duration-1000 ${
+          showScrollIndicator ? 'opacity-80' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <span className="text-[10px] md:text-xs text-orange-400 uppercase tracking-[0.2em] font-bold">
+          Scroll
+        </span>
+        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-1">
+          <div className="w-1.5 h-2 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full animate-scroll-mouse" />
+        </div>
+      </div>
+
       {/* Sección 1: Nombre (0% - 30%) */}
       <div
         className="relative md:absolute text-center transition-opacity duration-300 flex flex-col items-center"
@@ -50,7 +73,7 @@ export default function Overlay() {
         <h1 className="text-6xl md:text-7xl font-black text-white mb-4 tracking-tighter">
           Ayoub Atidi
         </h1>
-        <p className="text-xl md:text-2xl text-gray-300 font-light text-center">
+        <p className="text-xl md:text-2xl text-gray-300 font-light text-center mb-8 md:mb-12">
           Creative Developer & Full Stack Engineer
         </p>
       </div>

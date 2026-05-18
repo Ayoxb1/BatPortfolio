@@ -147,6 +147,15 @@ a, button {
   animation: float 3s ease-in-out infinite;
 }
 
+@keyframes scroll-mouse {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(12px); opacity: 0; }
+}
+
+.animate-scroll-mouse {
+  animation: scroll-mouse 2s cubic-bezier(0.15, 0.41, 0.69, 0.94) infinite;
+}
+
 /* Glassmorphism */
 .glass {
   background: rgba(255, 255, 255, 0.1);

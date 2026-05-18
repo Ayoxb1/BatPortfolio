@@ -156,9 +156,14 @@ export default function Projects() {
 
       {/* CTA Button */}
       <div className="max-w-6xl mx-auto mt-16 text-center">
-        <button className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 active:scale-95">
+        <a 
+          href="https://github.com/Ayoxb1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 active:scale-95"
+        >
           Ver todos los proyectos
-        </button>
+        </a>
       </div>
 
       {/* Decorative elements */}
