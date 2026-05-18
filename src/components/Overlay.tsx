@@ -82,9 +82,12 @@ export default function Overlay() {
         <p className="text-xl md:text-2xl text-gray-300 font-light mb-6">
           Fusionando diseño y ingeniería para crear soluciones innovadoras
         </p>
-        <div className="inline-block px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm text-white cursor-pointer hover:bg-white/20 transition-all">
+        <a
+          href="#proyectos"
+          className="inline-block px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm text-white cursor-pointer hover:bg-white/20 transition-all pointer-events-auto"
+        >
           Explorar mi trabajo
-        </div>
+        </a>
       </div>
     </div>
   );

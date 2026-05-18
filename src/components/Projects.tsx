@@ -66,7 +66,7 @@ export default function Projects() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
-    <section className="relative w-full bg-black py-20 md:py-32 px-4 md:px-8">
+    <section id="proyectos" className="relative w-full bg-black py-20 md:py-32 px-4 md:px-8">
       {/* Header */}
       <div className="max-w-6xl mx-auto mb-16">
         <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter">
