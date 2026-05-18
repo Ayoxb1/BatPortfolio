@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Script from 'next/script';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -102,6 +103,33 @@ export default function Contact() {
                   </a>
                 ))}
               </div>
+            </div>
+
+            {/* LinkedIn Badge */}
+            <div className="pt-8 border-t border-white/10">
+              <p className="text-sm text-gray-400 mb-4">Mi perfil profesional:</p>
+              <div
+                className="badge-base LI-profile-badge"
+                data-locale="es_ES"
+                data-size="medium"
+                data-theme="dark"
+                data-type="VERTICAL"
+                data-vanity="ayoub-atidi-belbaz-07b274312"
+                data-version="v1"
+              >
+                <a
+                  className="badge-base__link LI-simple-link"
+                  href="https://es.linkedin.com/in/ayoub-atidi-belbaz-07b274312?trk=profile-badge"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ayoub Atidi Belbaz
+                </a>
+              </div>
+              <Script
+                src="https://platform.linkedin.com/badges/js/profile.js"
+                strategy="lazyOnload"
+              />
             </div>
           </div>
 
