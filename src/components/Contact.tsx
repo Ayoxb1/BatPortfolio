@@ -134,10 +134,10 @@ export default function Contact() {
           </div>
 
           {/* Contact Form */}
-          <div>
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="w-full">
+            <form onSubmit={handleSubmit} className="space-y-6 w-full">
               {/* Name */}
-              <div>
+              <div className="w-full">
                 <label className="block text-sm font-medium text-white mb-2">
                   Nombre
                 </label>
@@ -147,14 +147,14 @@ export default function Contact() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full px-6 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-gray-500 focus:outline-none focus:border-white/40 focus:bg-white/10 transition-all"
+                  className="w-full min-h-[44px] px-6 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-gray-500 focus:outline-none focus:border-white/40 focus:bg-white/10 transition-all"
                   placeholder="Tu nombre"
                   required
                 />
               </div>
 
               {/* Email */}
-              <div>
+              <div className="w-full">
                 <label className="block text-sm font-medium text-white mb-2">
                   Email
                 </label>
@@ -164,14 +164,14 @@ export default function Contact() {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="w-full px-6 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-gray-500 focus:outline-none focus:border-white/40 focus:bg-white/10 transition-all"
+                  className="w-full min-h-[44px] px-6 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-gray-500 focus:outline-none focus:border-white/40 focus:bg-white/10 transition-all"
                   placeholder="tu@email.com"
                   required
                 />
               </div>
 
               {/* Message */}
-              <div>
+              <div className="w-full">
                 <label className="block text-sm font-medium text-white mb-2">
                   Mensaje
                 </label>
@@ -181,7 +181,7 @@ export default function Contact() {
                     setFormData({ ...formData, message: e.target.value })
                   }
                   rows={5}
-                  className="w-full px-6 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-gray-500 focus:outline-none focus:border-white/40 focus:bg-white/10 transition-all resize-none"
+                  className="w-full min-h-[44px] px-6 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-gray-500 focus:outline-none focus:border-white/40 focus:bg-white/10 transition-all resize-none"
                   placeholder="Tu mensaje..."
                   required
                 />
@@ -190,7 +190,7 @@ export default function Contact() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105 active:scale-95"
+                className="w-full min-h-[44px] min-w-[44px] flex items-center justify-center py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105 active:scale-95"
               >
                 {submitted ? '¡Mensaje enviado!' : 'Enviar mensaje'}
               </button>

@@ -105,14 +105,14 @@ export default function Projects() {
             <div className="absolute inset-0 rounded-2xl border border-white/20 group-hover:border-white/40 transition-all duration-500" />
 
             {/* Content */}
-            <div className="relative h-80 md:h-96 p-8 flex flex-col justify-between overflow-hidden">
+            <div className="relative h-auto md:h-96 p-6 md:p-8 flex flex-col justify-between min-h-[320px] overflow-hidden">
               {/* Top section */}
               <div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:translate-x-1 transition-transform duration-300">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 md:group-hover:translate-x-1 transition-transform duration-300">
                   {project.title}
                 </h3>
                 <p
-                  className="text-gray-200 text-sm md:text-base leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  className="text-gray-200 text-sm md:text-base leading-relaxed opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500"
                   style={{
                     transitionDelay: hoveredId === project.id ? '100ms' : '0ms',
                   }}
@@ -123,7 +123,7 @@ export default function Projects() {
 
               {/* Tags */}
               <div
-                className="flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                className="flex flex-wrap gap-2 mt-6 md:mt-0 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500"
                 style={{
                   transitionDelay: hoveredId === project.id ? '150ms' : '0ms',
                 }}
@@ -139,9 +139,9 @@ export default function Projects() {
               </div>
 
               {/* Arrow icon */}
-              <div className="absolute top-8 right-8 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300">
+              <div className="absolute top-6 right-6 md:top-8 md:right-8 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center md:group-hover:bg-white/20 md:group-hover:translate-x-1 md:group-hover:-translate-y-1 transition-all duration-300">
                 <svg
-                  className="w-6 h-6 text-white group-hover:translate-x-1 transition-transform"
+                  className="w-6 h-6 text-white md:group-hover:translate-x-1 transition-transform"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -156,7 +156,7 @@ export default function Projects() {
 
       {/* CTA Button */}
       <div className="max-w-6xl mx-auto mt-16 text-center">
-        <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 active:scale-95">
+        <button className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 active:scale-95">
           Ver todos los proyectos
         </button>
       </div>
