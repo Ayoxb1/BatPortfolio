@@ -81,9 +81,12 @@ export default function Projects() {
       {/* Grid */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project) => (
-          <div
+          <a
             key={project.id}
-            className="group relative overflow-hidden rounded-2xl cursor-pointer"
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative overflow-hidden rounded-2xl cursor-pointer block"
             onMouseEnter={() => setHoveredId(project.id)}
             onMouseLeave={() => setHoveredId(null)}
           >
@@ -147,7 +150,7 @@ export default function Projects() {
                 </svg>
               </div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
 
