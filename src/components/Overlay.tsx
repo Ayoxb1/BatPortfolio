@@ -38,10 +38,10 @@ export default function Overlay() {
   };
 
   return (
-    <div className="scrolly-container fixed inset-0 pointer-events-none z-10 flex items-center justify-center">
+    <div className="scrolly-container fixed inset-0 pointer-events-none z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0 px-6 md:px-0">
       {/* Sección 1: Nombre (0% - 30%) */}
       <div
-        className="absolute text-center transition-opacity duration-300"
+        className="relative md:absolute text-center transition-opacity duration-300 flex flex-col items-center"
         style={{
           opacity: getOpacity(0, 0.3),
           transform: `translateY(${getYOffset(0)}px)`,
@@ -50,14 +50,14 @@ export default function Overlay() {
         <h1 className="text-6xl md:text-7xl font-black text-white mb-4 tracking-tighter">
           Ayoub Atidi
         </h1>
-        <p className="text-xl md:text-2xl text-gray-300 font-light">
+        <p className="text-xl md:text-2xl text-gray-300 font-light text-center">
           Creative Developer & Full Stack Engineer
         </p>
       </div>
 
       {/* Sección 2: Tagline izquierda (30% - 60%) */}
       <div
-        className="absolute left-8 md:left-16 text-left max-w-xs transition-opacity duration-300"
+        className="relative md:absolute md:left-16 text-center md:text-left max-w-xs transition-opacity duration-300 flex flex-col items-center md:items-start"
         style={{
           opacity: getOpacity(0.25, 0.55),
           transform: `translateY(${getYOffset(0.25)}px)`,
@@ -73,7 +73,7 @@ export default function Overlay() {
 
       {/* Sección 3: Mensaje derecha (60% - 90%) */}
       <div
-        className="absolute right-8 md:right-16 text-right max-w-xs transition-opacity duration-300"
+        className="relative md:absolute md:right-16 text-center md:text-right max-w-xs transition-opacity duration-300 flex flex-col items-center md:items-end"
         style={{
           opacity: getOpacity(0.55, 0.85),
           transform: `translateY(${getYOffset(0.55)}px)`,
@@ -84,7 +84,7 @@ export default function Overlay() {
         </p>
         <a
           href="#proyectos"
-          className="inline-block px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm text-white cursor-pointer hover:bg-white/20 transition-all pointer-events-auto"
+          className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm text-white cursor-pointer hover:bg-white/20 transition-all pointer-events-auto"
         >
           Explorar mi trabajo
         </a>
