@@ -60,6 +60,14 @@ const projects: Project[] = [
     image: 'linear-gradient(135deg, #0d9488, #059669)',
     link: 'https://ramadan-deen.vercel.app',
   },
+  {
+    id: '7',
+    title: 'Imaan Belbaz x Drake — Marca Personal',
+    description: 'Tienda online de marca personal con diseño editorial exclusivo, experiencia de usuario premium y catálogo de productos con identidad visual de alto impacto.',
+    tags: ['Next.js', 'E-commerce', 'Branding', 'Diseño Web'],
+    image: 'linear-gradient(135deg, #18181b, #a16207)',
+    link: 'https://imaan-belbaz-x-drake.vercel.app/',
+  },
 ];
 
 export default function Projects() {
