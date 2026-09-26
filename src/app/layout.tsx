@@ -1,15 +1,31 @@
 import type { Metadata, Viewport } from 'next';
+import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-space-grotesk',
+});
 
 export const metadata: Metadata = {
   title: 'Ayoub Atidi | Creative Developer & Full Stack Engineer',
-  description: 'Portfolio moderno con scroll-linked animation y proyectos destacados',
+  description:
+    'Portfolio de Ayoub Atidi — Desarrollo web full stack, diseño de interfaces y experiencias digitales.',
+  metadataBase: new URL('https://ayoubatidi.dev'),
+  openGraph: {
+    title: 'Ayoub Atidi | Creative Developer',
+    description: 'Desarrollo web full stack y experiencias digitales.',
+    type: 'website',
+  },
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
+  themeColor: '#050a18',
 };
 
 export default function RootLayout({
@@ -18,17 +34,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className="scroll-smooth">
-      <head>
-        {/* Fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="antialiased">{children}</body>
+    <html lang="es" className={spaceGrotesk.variable}>
+      <body className={`${spaceGrotesk.className} antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }
