@@ -7,6 +7,10 @@ import { useGSAP } from '@gsap/react';
 import { EASE, DURATION } from '@/lib/gsap-config';
 import Image from 'next/image';
 import { onSectionNavigate } from '@/lib/navigation-event';
+import GlitchText from '@/components/ui/GlitchText';
+import RadarScanner from '@/components/ui/RadarScanner';
+import FashionViewer3D from '@/components/FashionViewer3D';
+import ClassicDesktopWindow from '@/components/ClassicDesktopWindow';
 
 interface Project {
   id: string;
@@ -103,6 +107,8 @@ const projects: Project[] = [
 export default function ProjectsShowcase() {
   const containerRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [show3DFashion, setShow3DFashion] = useState(false);
+  const [showClassicDesktop, setShowClassicDesktop] = useState(false);
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -218,9 +224,11 @@ export default function ProjectsShowcase() {
           <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
           WAYNE_DATABASE // SECURE_ARCHIVE
         </div>
-        <h2 className="text-2xl md:text-4xl font-black text-white tracking-tight glow-text-subtle">
-          Arsenales & Proyectos
-        </h2>
+        <GlitchText
+          text="Arsenales & Proyectos"
+          as="h2"
+          className="text-2xl md:text-4xl font-black text-white tracking-tight glow-text-subtle"
+        />
       </div>
 
       {/* Main Centered Projects Stage */}
@@ -260,9 +268,11 @@ export default function ProjectsShowcase() {
                 
                 {/* Left Column: Information & Actions */}
                 <div className="lg:col-span-6 flex flex-col text-left">
-                  <h3 className="text-xl sm:text-2xl md:text-4xl font-black text-white tracking-tight mb-1 glow-text-subtle">
-                    {project.title}
-                  </h3>
+                  <GlitchText
+                    text={project.title}
+                    as="h3"
+                    className="text-xl sm:text-2xl md:text-4xl font-black text-white tracking-tight mb-1 glow-text-subtle"
+                  />
 
                   <p className="text-[11px] sm:text-xs md:text-sm font-medium text-zinc-400 mb-2 md:mb-3 tracking-wide font-mono">
                     // {project.subtitle}
@@ -310,65 +320,101 @@ export default function ProjectsShowcase() {
                       </svg>
                       <span>Código GitHub</span>
                     </a>
+
+                    {/* Classic Desktop Suite Trigger for DAM Project (05) */}
+                    {project.id === '05' && (
+                      <button
+                        onClick={() => setShowClassicDesktop(true)}
+                        className="btn-batcave group text-xs md:text-sm py-2 px-3.5 flex items-center gap-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 cursor-pointer shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all"
+                        title="Abrir simulación de ventana de escritorio clásica JavaFX / JDBC"
+                      >
+                        <span>☕</span>
+                        <span>Abrir Suite Desktop</span>
+                      </button>
+                    )}
+
+                    {/* 3D Garment Model Trigger for Imaan Belbaz x Drake (07) */}
+                    {project.id === '07' && (
+                      <button
+                        onClick={() => setShow3DFashion(!show3DFashion)}
+                        className="btn-batcave group text-xs md:text-sm py-2 px-3.5 flex items-center gap-2 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-200 cursor-pointer shadow-[0_0_20px_rgba(168,85,247,0.25)] transition-all"
+                        title="Alternar visualizador de modelo 3D de alta costura"
+                      >
+                        <span>✦</span>
+                        <span>{show3DFashion ? 'Ver Web' : 'Explorar Prenda 3D'}</span>
+                      </button>
+                    )}
                   </div>
                 </div>
 
-                {/* Right Column: Interactive Browser Window Mini Preview */}
+                {/* Right Column: Interactive Browser Window Mini Preview OR 3D Garment Viewer */}
                 <div className="lg:col-span-6 mt-2 lg:mt-0">
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block relative rounded-xl overflow-hidden border border-white/20 bg-[#060606] shadow-[0_0_40px_rgba(0,0,0,0.8)] transition-all duration-300 hover:border-white/50 hover:shadow-[0_0_50px_rgba(255,255,255,0.12)] cursor-pointer"
-                  >
-                    {/* Browser Mockup Header Bar */}
-                    <div className="w-full flex items-center justify-between px-3 py-2 bg-[#111111] border-b border-white/10 text-[10px] font-mono text-zinc-400">
-                      {/* Window Controls */}
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 group-hover:bg-red-500 transition-colors" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 group-hover:bg-yellow-500 transition-colors" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 group-hover:bg-green-500 transition-colors" />
+                  {project.id === '07' && show3DFashion ? (
+                    <FashionViewer3D onClose={() => setShow3DFashion(false)} />
+                  ) : (
+                    <a
+                      href={project.id === '05' ? '#' : project.link}
+                      onClick={project.id === '05' ? (e) => { e.preventDefault(); setShowClassicDesktop(true); } : undefined}
+                      target={project.id === '05' ? undefined : '_blank'}
+                      rel={project.id === '05' ? undefined : 'noopener noreferrer'}
+                      className="group block relative rounded-xl overflow-hidden border border-white/20 bg-[#060606] shadow-[0_0_40px_rgba(0,0,0,0.8)] transition-all duration-300 hover:border-white/50 hover:shadow-[0_0_50px_rgba(255,255,255,0.12)] cursor-pointer"
+                    >
+                      {/* Telemetry Radar Scanner for Telemetry Projects */}
+                      {(project.id === '01' || project.id === '02') && (
+                        <RadarScanner label={project.id === '02' ? 'BIOMETRIC_RADAR // ACTIVE' : 'MULTI_TENANT_RADAR // ACTIVE'} />
+                      )}
+
+                      {/* Browser Mockup Header Bar */}
+                      <div className="w-full flex items-center justify-between px-3 py-2 bg-[#111111] border-b border-white/10 text-[10px] font-mono text-zinc-400">
+                        {/* Window Controls */}
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 group-hover:bg-red-500 transition-colors" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 group-hover:bg-yellow-500 transition-colors" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 group-hover:bg-green-500 transition-colors" />
+                        </div>
+
+                        {/* Mockup Address Bar */}
+                        <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-black/60 border border-white/10 text-zinc-400 text-[10px] max-w-[200px] sm:max-w-xs truncate">
+                          <span className="text-zinc-500">{project.id === '05' ? '☕' : '🔒'}</span>
+                          <span className="truncate">
+                            {project.id === '05' ? 'javaw.exe -jar DAM_Enterprise_Suite.jar' : project.link.replace('https://', '')}
+                          </span>
+                        </div>
+
+                        {/* Live Badge */}
+                        <div className="flex items-center gap-1 text-[9px] text-zinc-400">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
+                          <span>{project.id === '05' ? 'JVM' : 'LIVE'}</span>
+                        </div>
                       </div>
 
-                      {/* Mockup Address Bar */}
-                      <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-black/60 border border-white/10 text-zinc-400 text-[10px] max-w-[200px] sm:max-w-xs truncate">
-                        <span className="text-zinc-500">🔒</span>
-                        <span className="truncate">{project.link.replace('https://', '')}</span>
+                      {/* Screenshot Preview Image with Zoom & Scanline overlay */}
+                      <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
+                        <Image
+                          src={project.previewImage}
+                          alt={`Preview de ${project.title}`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 500px"
+                          className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
+                        />
+
+                        {/* Hover Glass Flare & Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
+                        
+                        {/* Corner Target Reticles */}
+                        <div className="absolute top-2 left-2 w-2.5 h-2.5 border-t border-l border-white/60 pointer-events-none" />
+                        <div className="absolute top-2 right-2 w-2.5 h-2.5 border-t border-r border-white/60 pointer-events-none" />
+                        <div className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b border-l border-white/60 pointer-events-none" />
+                        <div className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b border-r border-white/60 pointer-events-none" />
+
+                        {/* Hover Badge */}
+                        <div className="absolute bottom-3 right-3 px-2 py-1 rounded bg-black/80 border border-white/30 text-white text-[10px] font-mono tracking-wider backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5">
+                          <span>{project.id === '05' ? 'ABRIR ENTORNO ESCRITORIO' : 'ABRIR EN VIVO'}</span>
+                          <span>↗</span>
+                        </div>
                       </div>
-
-                      {/* Live Badge */}
-                      <div className="flex items-center gap-1 text-[9px] text-zinc-400">
-                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
-                        <span>LIVE</span>
-                      </div>
-                    </div>
-
-                    {/* Screenshot Preview Image with Zoom & Scanline overlay */}
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
-                      <Image
-                        src={project.previewImage}
-                        alt={`Preview de ${project.title}`}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 500px"
-                        className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
-                      />
-
-                      {/* Hover Glass Flare & Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
-                      
-                      {/* Corner Target Reticles */}
-                      <div className="absolute top-2 left-2 w-2.5 h-2.5 border-t border-l border-white/60 pointer-events-none" />
-                      <div className="absolute top-2 right-2 w-2.5 h-2.5 border-t border-r border-white/60 pointer-events-none" />
-                      <div className="absolute bottom-2 left-2 w-2.5 h-2.5 border-b border-l border-white/60 pointer-events-none" />
-                      <div className="absolute bottom-2 right-2 w-2.5 h-2.5 border-b border-r border-white/60 pointer-events-none" />
-
-                      {/* Hover Badge */}
-                      <div className="absolute bottom-3 right-3 px-2 py-1 rounded bg-black/80 border border-white/30 text-white text-[10px] font-mono tracking-wider backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5">
-                        <span>ABRIR EN VIVO</span>
-                        <span>↗</span>
-                      </div>
-                    </div>
-                  </a>
+                    </a>
+                  )}
                 </div>
 
               </div>
@@ -397,6 +443,11 @@ export default function ProjectsShowcase() {
           />
         ))}
       </div>
+
+      {/* Classic Desktop Environment Modal for DAM Suite */}
+      {showClassicDesktop && (
+        <ClassicDesktopWindow onClose={() => setShowClassicDesktop(false)} />
+      )}
     </section>
   );
 }

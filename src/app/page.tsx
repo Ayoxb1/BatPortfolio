@@ -17,6 +17,17 @@ const MagneticDock = dynamic(
   { ssr: false }
 );
 
+// Dynamic imports for tactical OS features
+const TacticalTerminal = dynamic(
+  () => import('@/components/TacticalTerminal'),
+  { ssr: false }
+);
+
+const SystemLiveLogs = dynamic(
+  () => import('@/components/SystemLiveLogs'),
+  { ssr: false }
+);
+
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -27,6 +38,12 @@ export default function Home() {
 
       {/* Dock — appears after preloader completes */}
       <MagneticDock visible={isLoaded} />
+
+      {/* Interactive Tactical CLI Terminal & Easter Eggs (Ctrl+K or button) */}
+      <TacticalTerminal />
+
+      {/* Live Backend Telemetry & Subsystem Logs */}
+      <SystemLiveLogs />
 
       <main className="bg-[#000000]">
         {/* 1. Secuencia de Vídeo de la Batcomputadora (al principio) */}
