@@ -9,12 +9,17 @@ Construido con **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, **
 ## ⚡ Características Principales
 
 * 🎮 **Dock Flotante Estilo macOS / iOS:** Barra magnética esmerilada con efecto de vidrio translúcido, centrado automático, física de muelles y navegación fluida entre sectores.
+* ⌨️ **Terminal Táctica Interactiva & Easter Eggs (CLI):** Consola ejecutable en tiempo real con comandos como `run barbersaas`, `execute imaan_brand`, `run gymtrack`, `skills`, `projects` y `matrix` (activable con shortcut `Ctrl+K` o botón en pantalla).
+* 👔 **Visualizador 3D High-Fashion (Imaan Belbaz x Drake):** Renderizador 3D interactivo en Three.js embebido con rotación libre 360°, inspección de pliegues, materiales noir/gold y alternador de malla wireframe.
+* 🖥️ **Ventana de Escritorio Clásica (Suite DAM - Java / JavaFX / JDBC):** Entorno simulado de sistema operativo de escritorio con menú clásico, TableView de empleados y consola de ejecución de consultas SQL directa.
+* 📡 **Logs de Telemetría en Vivo (Batcomputer OS):** Flujo de diagnósticos de backend en tiempo real (Supabase RLS, pipelines MongoDB, pools HikariCP y transacciones ACID).
+* ⚡ **Microinteracciones de Radar & Glitch:** Escáner láser estilo radar sobre tarjetas de telemetría y aberración cromática cinemática en títulos tácticos.
 * 🌐 **Núcleo 3D Interactivo (Three.js):** Escena WebGL con icosaedro geométrico, partículas cuánticas, respuesta al cursor, giro cinético y transición a la esquina en scroll.
 * 📹 **Estación de Monitoreo en Vivo (ScrollyCanvas):** Secuencia de vídeo interactiva de la Batcomputadora con controles de reproducción/pausa y fallback optimizado en WebP.
-* 📂 **Arsenales & Proyectos (Scroll Storytelling):** 7 proyectos destacados (BarberSaaS, GymTrack, BowlWeb, Ramadan Deen, Imaan Belbaz x Drake, etc.) con mini previews de navegador web, botón de acceso en vivo y botón de código fuente en GitHub.
+* 📂 **Arsenales & Proyectos (Scroll Storytelling):** 7 proyectos destacados con mini previews web, botón de acceso en vivo y botón de código fuente en GitHub.
 * 👤 **Dossier Técnico & Métricas (About):** Habilidades fullstack (Frontend, Backend, Bases de Datos, DevOps), contadores numéricos fluidos y arquitectura de sistemas.
-* ✉️ **Terminal de Transmisión Encriptada (Contacto):** Formulario de contacto funcional conectado a la API de correo (`/api/contact` ➔ entrega directa a `ayoubatidi2019@gmail.com`), con validación, estados de carga, confirmación y enlace directo a cliente de correo.
-* 🔒 **Cumplimiento Legal & Privacidad:** Páginas de Aviso Legal y Propiedad Intelectual, Política de Privacidad, Cookies y banner técnico.
+* ✉️ **Terminal de Transmisión Encriptada (Contacto):** Formulario de contacto funcional multi-capa conectado a entrega directa en `ayoubatidi2019@gmail.com`.
+* 🔒 **Cumplimiento Legal & Privacidad:** Páginas de Aviso Legal, Política de Privacidad y Cookies sin exposición de datos personales sensibles.
 
 ---
 
