@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { EASE, DURATION } from '@/lib/gsap-config';
+import { onSectionNavigate } from '@/lib/navigation-event';
 
 interface HeroSceneProps {
   animateIn?: boolean;
@@ -16,6 +17,7 @@ export default function HeroScene({ animateIn = false }: HeroSceneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const threeGroupRef = useRef<THREE.Group | null>(null);
+  const spinVelocityRef = useRef(0);
 
   // Sphere position state
   const [spherePositionIndex, setSpherePositionIndex] = useState(0); // 0: Centro, 1: Derecha, 2: Izquierda, 3: Órbita Libre
@@ -166,7 +168,7 @@ export default function HeroScene({ animateIn = false }: HeroSceneProps) {
 
     // Interactive click on canvas spins the sphere
     const handleCanvasClick = () => {
-      spinVelocity = 0.08;
+      spinVelocityRef.current = 0.08;
     };
     window.addEventListener('click', handleCanvasClick);
 
@@ -186,18 +188,18 @@ export default function HeroScene({ animateIn = false }: HeroSceneProps) {
       targetY += (mouseY - targetY) * 0.05;
 
       // Spin decay
-      if (spinVelocity > 0) {
-        spinVelocity *= 0.95;
+      if (spinVelocityRef.current > 0) {
+        spinVelocityRef.current *= 0.95;
       }
 
-      coreMesh.rotation.y += 0.004 + spinVelocity;
-      coreMesh.rotation.x += 0.002 + spinVelocity * 0.5;
+      coreMesh.rotation.y += 0.004 + spinVelocityRef.current;
+      coreMesh.rotation.x += 0.002 + spinVelocityRef.current * 0.5;
 
-      wireMesh.rotation.y -= 0.003 + spinVelocity;
+      wireMesh.rotation.y -= 0.003 + spinVelocityRef.current;
       wireMesh.rotation.z += 0.002;
 
-      ringMesh1.rotation.z += 0.005 + spinVelocity * 0.8;
-      ringMesh2.rotation.x += 0.004 + spinVelocity * 0.8;
+      ringMesh1.rotation.z += 0.005 + spinVelocityRef.current * 0.8;
+      ringMesh2.rotation.x += 0.004 + spinVelocityRef.current * 0.8;
 
       particles.rotation.y += 0.0008;
 
@@ -317,7 +319,34 @@ export default function HeroScene({ animateIn = false }: HeroSceneProps) {
     { dependencies: [animateIn], scope: sectionRef }
   );
 
+  // Fluid presentation animation when navigated from Dock
+  useEffect(() => {
+    return onSectionNavigate('inicio', () => {
+      spinVelocityRef.current = 0.09;
+      setTimeout(() => {
+        gsap.fromTo(
+          '.hud-header',
+          { y: -15, autoAlpha: 0.5 },
+          { y: 0, autoAlpha: 1, duration: 0.8, ease: 'power3.out' }
+        );
+
+        gsap.fromTo(
+          '.hero-badge',
+          { scale: 0.85, autoAlpha: 0.5 },
+          { scale: 1, autoAlpha: 1, duration: 0.7, ease: 'back.out(1.7)' }
+        );
+
+        gsap.fromTo(
+          '.hero-title-part',
+          { y: 25, autoAlpha: 0.4 },
+          { y: 0, autoAlpha: 1, duration: 0.85, stagger: 0.08, ease: 'power3.out' }
+        );
+      }, 300);
+    });
+  }, []);
+
   const scrollTo = (id: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const lenis = (window as any).lenis;
     if (lenis) lenis.scrollTo(id, { duration: 1.2 });
   };

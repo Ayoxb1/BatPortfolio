@@ -1,11 +1,12 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { EASE, DURATION } from '@/lib/gsap-config';
+import { onSectionNavigate } from '@/lib/navigation-event';
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -97,6 +98,37 @@ export default function Contact() {
     { scope: sectionRef }
   );
 
+  // Fluid presentation animation when navigated from Dock
+  useEffect(() => {
+    return onSectionNavigate('contacto', () => {
+      setTimeout(() => {
+        gsap.fromTo(
+          '.contact-header',
+          { y: 30, autoAlpha: 0.5 },
+          { y: 0, autoAlpha: 1, duration: 0.85, ease: 'power3.out' }
+        );
+
+        gsap.fromTo(
+          '.contact-node',
+          { x: -30, autoAlpha: 0.35 },
+          { x: 0, autoAlpha: 1, duration: 0.75, stagger: 0.08, ease: 'power3.out' }
+        );
+
+        gsap.fromTo(
+          '.contact-terminal',
+          { y: 30, autoAlpha: 0.4, scale: 0.98 },
+          { y: 0, autoAlpha: 1, scale: 1, duration: 0.85, ease: 'power3.out' }
+        );
+
+        gsap.fromTo(
+          '.tactical-social-btn',
+          { y: 15, autoAlpha: 0.4 },
+          { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.06, ease: 'power3.out' }
+        );
+      }, 300);
+    });
+  }, []);
+
   return (
     <section
       ref={sectionRef}
@@ -163,7 +195,7 @@ export default function Contact() {
                   href="https://github.com/Ayoxb1"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-batcave-ghost flex items-center justify-center gap-2.5 py-3 px-3 group hover:border-white/40 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.18)] transition-all text-xs font-mono"
+                  className="tactical-social-btn btn-batcave-ghost flex items-center justify-center gap-2.5 py-3 px-3 group hover:border-white/40 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.18)] transition-all text-xs font-mono"
                   title="Ver GitHub de Ayoub Atidi"
                 >
                   <svg className="w-4 h-4 text-white group-hover:scale-110 transition-transform flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -176,7 +208,7 @@ export default function Contact() {
                   href="https://www.linkedin.com/in/ayoub-atidi-belbaz-07b274312/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-batcave-ghost flex items-center justify-center gap-2.5 py-3 px-3 group hover:border-white/40 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.18)] transition-all text-xs font-mono"
+                  className="tactical-social-btn btn-batcave-ghost flex items-center justify-center gap-2.5 py-3 px-3 group hover:border-white/40 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.18)] transition-all text-xs font-mono"
                   title="Ver LinkedIn de Ayoub Atidi"
                 >
                   <svg className="w-4 h-4 text-white group-hover:scale-110 transition-transform flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -189,7 +221,7 @@ export default function Contact() {
                   href="https://www.instagram.com/__ayoxb__"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-batcave-ghost flex items-center justify-center gap-2.5 py-3 px-3 group hover:border-white/40 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.18)] transition-all text-xs font-mono"
+                  className="tactical-social-btn btn-batcave-ghost flex items-center justify-center gap-2.5 py-3 px-3 group hover:border-white/40 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.18)] transition-all text-xs font-mono"
                   title="Ver Instagram de Ayoub Atidi"
                 >
                   <svg className="w-4 h-4 text-white group-hover:scale-110 transition-transform flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
