@@ -33,17 +33,6 @@ export default function Contact() {
     },
     {
       code: 'FREQ-02',
-      label: 'Línea Telefónica',
-      value: '+34 641 27 91 31',
-      href: 'tel:+34641279131',
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
-        </svg>
-      ),
-    },
-    {
-      code: 'FREQ-03',
       label: 'LinkedIn Profesional',
       value: 'Ayoub Atidi Belbaz',
       href: 'https://www.linkedin.com/in/ayoub-atidi-belbaz-07b274312/',
@@ -54,7 +43,7 @@ export default function Contact() {
       ),
     },
     {
-      code: 'FREQ-04',
+      code: 'FREQ-03',
       label: 'Repositorio GitHub',
       value: 'github.com/Ayoxb1',
       href: 'https://github.com/Ayoxb1',
@@ -313,7 +302,7 @@ export default function Contact() {
           <div className="flex items-center gap-4 text-zinc-500">
             <span>B-OS // 4.2</span>
             <span>DAM TITULADO</span>
-            <span>MADRID, ES</span>
+            <span>REMOTE // GLOBAL</span>
           </div>
         </div>
       </div>

@@ -47,7 +47,6 @@ export default function AvisoLegalPage() {
               <li><strong>Titular:</strong> Ayoub Atidi Belbaz</li>
               <li><strong>Condición:</strong> Desarrollador Full Stack & Técnico Superior DAM</li>
               <li><strong>Email de contacto oficial:</strong> ayoubatidi2019@gmail.com</li>
-              <li><strong>Teléfono de contacto:</strong> +34 641 27 91 31</li>
               <li><strong>Sitio Web:</strong> Portfolio Personal (https://ayoub-atidi.vercel.app o dominio asociado)</li>
             </ul>
           </section>
