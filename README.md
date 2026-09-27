@@ -213,8 +213,8 @@ Asegúrate de que `public/sequence/` está incluido en la build.
 ## 📞 Contacto
 
 - Email: ayoubatidi2019@gmail.com
-- Teléfono: +34 641 27 91 31
-- Ubicación: Molina de Segura, Murcia
+- GitHub: [https://github.com/Ayoxb1](https://github.com/Ayoxb1)
+- LinkedIn: [Ayoub Atidi Belbaz](https://www.linkedin.com/in/ayoub-atidi-belbaz-07b274312/)
 
 ---
 
