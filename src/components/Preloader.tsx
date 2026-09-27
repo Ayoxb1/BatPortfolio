@@ -24,7 +24,10 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     const tl = gsap.timeline({
       onComplete: () => {
         document.body.style.overflow = '';
-        gsap.set(containerRef.current, { display: 'none' });
+        if (containerRef.current) {
+          containerRef.current.style.display = 'none';
+          containerRef.current.style.pointerEvents = 'none';
+        }
         onComplete();
       },
     });
@@ -46,8 +49,26 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         yPercent: -100,
         duration: 0.8,
         ease: EASE_WIPE,
+        onStart: () => {
+          if (containerRef.current) {
+            containerRef.current.style.pointerEvents = 'none';
+          }
+        },
       }, '+=0.2');
 
+    // Safety fallback: guaranteed unblock after 4.2 seconds under any circumstance
+    const timer = setTimeout(() => {
+      document.body.style.overflow = '';
+      if (containerRef.current) {
+        containerRef.current.style.display = 'none';
+        containerRef.current.style.pointerEvents = 'none';
+      }
+      onComplete();
+    }, 4200);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, { scope: containerRef });
 
   return (
@@ -91,7 +112,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       {/* Matte black stealth wipe panel */}
       <div
         ref={wipeRef}
-        className="absolute inset-0 will-change-transform z-30 bg-[#0f0f0f] border-t border-white/20"
+        className="absolute inset-0 pointer-events-none will-change-transform z-30 bg-[#0f0f0f] border-t border-white/20"
       />
     </div>
   );
