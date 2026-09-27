@@ -64,7 +64,7 @@ const projects: Project[] = [
     subtitle: 'Motor Interactivo Web & Game Dev', 
     description: 'Videojuego web narrativo con árbol de decisiones ramificado, renderizado dinámico en Canvas 2D, máquinas de estados finitos y ambientación sonora.', 
     tags: ['JavaScript ES6+', 'HTML5 Canvas', 'Game Loop', 'State Machine'], 
-    link: 'https://github.com/Ayoxb1',
+    link: 'https://profesor-python.vercel.app',
     previewImage: '/previews/adventure.webp',
     stats: 'Game Engine // 60 FPS Canvas'
   },
