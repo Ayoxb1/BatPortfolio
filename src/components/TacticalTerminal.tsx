@@ -156,6 +156,23 @@ export default function TacticalTerminal() {
           </a>
         </div>
       );
+    } else if (lower.includes('aventura') || lower.includes('python')) {
+      resultNode = (
+        <div className="space-y-1.5 p-2 rounded bg-violet-950/20 border border-violet-500/30 text-xs">
+          <div className="text-violet-400 font-bold">[MOTOR DE JUEGO] // AVENTURA GRÁFICA & PROFESOR PYTHON</div>
+          <p className="text-zinc-300">
+            Videojuego web interactivo con árbol narrativo ramificado, renderizado en Canvas HTML5 y gestión dinámica de estados finitos.
+          </p>
+          <a
+            href="https://profesor-python.vercel.app"
+            target="_blank"
+            rel="noreferrer"
+            className="text-violet-300 hover:text-white underline text-[11px]"
+          >
+            Abrir Aventura Gráfica en vivo ➔
+          </a>
+        </div>
+      );
     } else if (lower.includes('gymtrack')) {
       resultNode = (
         <div className="space-y-1.5 p-2 rounded bg-emerald-950/20 border border-emerald-500/30 text-xs">
