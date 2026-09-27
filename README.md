@@ -10,8 +10,7 @@ Construido con **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, **
 
 * 🎮 **Dock Flotante Estilo macOS / iOS:** Barra magnética esmerilada con efecto de vidrio translúcido, centrado automático, física de muelles y navegación fluida entre sectores.
 * ⌨️ **Terminal Táctica Interactiva & Easter Eggs (CLI):** Consola ejecutable en tiempo real con comandos como `run barbersaas`, `execute imaan_brand`, `run gymtrack`, `skills`, `projects` y `matrix` (activable con shortcut `Ctrl+K` o botón en pantalla).
-* 👔 **Visualizador 3D High-Fashion (Imaan Belbaz x Drake):** Renderizador 3D interactivo en Three.js embebido con rotación libre 360°, inspección de pliegues, materiales noir/gold y alternador de malla wireframe.
-* 🖥️ **Ventana de Escritorio Clásica (Suite DAM - Java / JavaFX / JDBC):** Entorno simulado de sistema operativo de escritorio con menú clásico, TableView de empleados y consola de ejecución de consultas SQL directa.
+* 🖥️ **Ventana de Escritorio Clásica (Suite DAM - Java / JavaFX / JDBC):** Entorno simulado de sistema operativo de escritorio con menú clásico, TableView del equipo unipersonal (100% código propio de Ayoub Atidi) y consola de ejecución de consultas SQL directa.
 * 📡 **Logs de Telemetría en Vivo (Batcomputer OS):** Flujo de diagnósticos de backend en tiempo real (Supabase RLS, pipelines MongoDB, pools HikariCP y transacciones ACID).
 * ⚡ **Microinteracciones de Radar & Glitch:** Escáner láser estilo radar sobre tarjetas de telemetría y aberración cromática cinemática en títulos tácticos.
 * 🌐 **Núcleo 3D Interactivo (Three.js):** Escena WebGL con icosaedro geométrico, partículas cuánticas, respuesta al cursor, giro cinético y transición a la esquina en scroll.
