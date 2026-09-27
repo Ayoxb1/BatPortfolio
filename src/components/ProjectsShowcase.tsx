@@ -1,11 +1,12 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { EASE, DURATION } from '@/lib/gsap-config';
 import Image from 'next/image';
+import { onSectionNavigate } from '@/lib/navigation-event';
 
 interface Project {
   id: string;
@@ -158,6 +159,31 @@ export default function ProjectsShowcase() {
     };
   }, { scope: containerRef });
 
+  // Fluid presentation animation when navigated from Dock
+  useEffect(() => {
+    return onSectionNavigate('proyectos', () => {
+      setTimeout(() => {
+        gsap.fromTo(
+          '.section-header',
+          { y: -20, autoAlpha: 0.4 },
+          { y: 0, autoAlpha: 1, duration: 0.85, ease: 'power3.out' }
+        );
+
+        gsap.fromTo(
+          '.project-card',
+          { scale: 0.94, autoAlpha: 0.4 },
+          { scale: 1, autoAlpha: 1, duration: 0.85, ease: 'power3.out' }
+        );
+
+        gsap.fromTo(
+          '.github-showcase-badge',
+          { scale: 0.8, autoAlpha: 0.5 },
+          { scale: 1, autoAlpha: 1, duration: 0.75, ease: 'back.out(2)' }
+        );
+      }, 300);
+    });
+  }, []);
+
   const activeProject = projects[activeIndex];
 
   return (
@@ -171,7 +197,7 @@ export default function ProjectsShowcase() {
         href="https://github.com/Ayoxb1"
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute top-5 right-4 sm:top-8 sm:right-8 md:top-10 md:right-12 z-30 flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-zinc-900/85 backdrop-blur-xl border border-white/25 hover:border-white/60 text-white shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_35px_rgba(255,255,255,0.45)] transition-all duration-300 hover:scale-105 cursor-pointer group"
+        className="github-showcase-badge absolute top-5 right-4 sm:top-8 sm:right-8 md:top-10 md:right-12 z-30 flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-zinc-900/85 backdrop-blur-xl border border-white/25 hover:border-white/60 text-white shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_35px_rgba(255,255,255,0.45)] transition-all duration-300 hover:scale-105 cursor-pointer group"
         title="Abrir perfil de GitHub de Ayoub Atidi"
       >
         <div className="relative flex items-center justify-center">

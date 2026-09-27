@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { EASE, DURATION } from '@/lib/gsap-config';
+import { onSectionNavigate } from '@/lib/navigation-event';
 
 const skillCategories = [
   {
@@ -109,6 +110,39 @@ export default function About() {
     },
     { scope: sectionRef }
   );
+
+  // Fluid presentation animation when navigated from Dock
+  useEffect(() => {
+    return onSectionNavigate('sobre-mi', () => {
+      setTimeout(() => {
+        gsap.fromTo(
+          '.about-header',
+          { y: 30, autoAlpha: 0.5 },
+          { y: 0, autoAlpha: 1, duration: 0.9, ease: 'power3.out' }
+        );
+
+        gsap.fromTo(
+          '.skill-card',
+          { y: 25, autoAlpha: 0.35, scale: 0.97 },
+          { y: 0, autoAlpha: 1, scale: 1, duration: 0.75, stagger: 0.05, ease: 'power3.out' }
+        );
+
+        const statElements = gsap.utils.toArray<HTMLElement>('.stat-number');
+        statElements.forEach((el) => {
+          const target = parseInt(el.dataset.value || '0', 10);
+          const obj = { value: 0 };
+          gsap.to(obj, {
+            value: target,
+            duration: 1.2,
+            ease: 'power2.out',
+            onUpdate: () => {
+              el.textContent = Math.round(obj.value).toString();
+            },
+          });
+        });
+      }, 300);
+    });
+  }, []);
 
   return (
     <section

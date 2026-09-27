@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import { onSectionNavigate } from '@/lib/navigation-event';
 
 interface ScrollyCanvasProps {
   frameCount?: number;
@@ -151,6 +152,7 @@ export default function ScrollyCanvas({ frameCount = 90 }: ScrollyCanvasProps) {
   };
 
   const scrollToHero = () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const lenis = (window as any).lenis;
     if (lenis) {
       lenis.scrollTo('#inicio', { duration: 1.2 });
@@ -158,6 +160,23 @@ export default function ScrollyCanvas({ frameCount = 90 }: ScrollyCanvasProps) {
       document.getElementById('inicio')?.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Fluid presentation animation when navigated from Dock
+  useEffect(() => {
+    return onSectionNavigate('secuencia', () => {
+      if (videoRef.current && videoRef.current.paused) {
+        videoRef.current.play().catch(() => {});
+        setIsVideoPlaying(true);
+      }
+      setTimeout(() => {
+        gsap.fromTo(
+          '.batcomputer-console',
+          { scale: 0.96, autoAlpha: 0.5 },
+          { scale: 1, autoAlpha: 1, duration: 0.85, ease: 'power3.out' }
+        );
+      }, 300);
+    });
+  }, []);
 
   return (
     <section
@@ -174,7 +193,7 @@ export default function ScrollyCanvas({ frameCount = 90 }: ScrollyCanvasProps) {
       <div className={`${useVideoMode ? 'w-full' : 'sticky top-0 h-screen'} w-full flex flex-col items-center justify-center overflow-hidden bg-black px-3 sm:px-6 md:px-8`}>
         
         {/* Outer Console Container */}
-        <div className="relative w-full max-w-5xl flex flex-col items-center z-10">
+        <div className="batcomputer-console relative w-full max-w-5xl flex flex-col items-center z-10">
           
           {/* Top Batcomputer HUD Bar */}
           <div className="w-full flex flex-wrap items-center justify-between gap-2 py-2 px-3 sm:py-2.5 sm:px-4 mb-3 rounded-xl border border-white/10 bg-[#0c0c0c]/90 backdrop-blur-md text-[11px] font-mono text-zinc-300">

@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence, MotionValue } from 'framer-motion';
+import { triggerSectionNavigation } from '@/lib/navigation-event';
 
 interface MagneticDockProps {
   visible?: boolean;
@@ -94,9 +95,11 @@ function DockItem({ item, mouseX, activeSection, onClick, isMobile }: DockItemPr
         )}
       </AnimatePresence>
 
-      <button
+      <motion.button
         ref={ref}
         onClick={() => onClick(item.id)}
+        whileTap={{ scale: 0.82 }}
+        whileHover={{ scale: 1.08 }}
         aria-label={item.label}
         aria-current={isActive ? 'page' : undefined}
         className={`w-9 h-9 md:w-11 md:h-11 rounded-xl flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 cursor-pointer ${
@@ -106,7 +109,7 @@ function DockItem({ item, mouseX, activeSection, onClick, isMobile }: DockItemPr
         }`}
       >
         <Icon className="w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:scale-110" />
-      </button>
+      </motion.button>
 
       {isActive && (
         <motion.div
@@ -154,10 +157,15 @@ export function MagneticDock({ visible = true }: MagneticDockProps) {
   }, []);
 
   const handleClick = (id: string) => {
+    setActiveSection(id);
+    triggerSectionNavigation(id);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const lenis = (window as any).lenis;
     if (lenis) {
-      lenis.scrollTo(`#${id}`, { duration: 1.2 });
+      lenis.scrollTo(`#${id}`, {
+        duration: 1.4,
+        easing: (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
+      });
     } else {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     }
