@@ -41,22 +41,6 @@ const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const BatLogoIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 100 60" fill="currentColor" {...props}>
-    <path d="M50 8 C48 14 44 19 38 18 C32 17 26 14 20 18 C14 22 10 32 6 36 C10 35 15 36 18 39 C15 42 12 47 10 52 C18 48 27 46 34 50 C36 44 41 38 50 42 C59 38 64 44 66 50 C73 46 82 48 90 52 C88 47 85 42 82 39 C85 36 90 35 94 36 C90 32 86 22 80 18 C74 14 68 17 62 18 C56 19 52 14 50 8 Z" />
-  </svg>
-);
-
-const BatmobileIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M2.5 12h2.5l2-3.5h7l2.5 2 3.5 1.5H22v3.5h-1.5a2.5 2.5 0 0 1-5 0H8.5a2.5 2.5 0 0 1-5 0H2v-3.5h.5z" />
-    <circle cx="6" cy="15.5" r="1.5" />
-    <circle cx="18" cy="15.5" r="1.5" />
-    <path d="M10 8.5l1.5-3h3l1 3" />
-    <path d="M19 10l2.5-2" />
-  </svg>
-);
-
 const NAV_ITEMS = [
   { id: 'secuencia', label: 'Vídeo en Vivo', icon: VideoCamIcon },
   { id: 'inicio', label: 'Núcleo 3D', icon: HomeIcon },
@@ -83,7 +67,7 @@ function DockItem({ item, mouseX, activeSection, onClick, isMobile }: DockItemPr
     return val - bounds.x - bounds.width / 2;
   });
 
-  const scaleRaw = useTransform(distance, [-120, 0, 120], [1, 1.38, 1]);
+  const scaleRaw = useTransform(distance, [-120, 0, 120], [1, 1.35, 1]);
   const scale = useSpring(scaleRaw, { stiffness: 350, damping: 25 });
 
   const isActive = activeSection === item.id;
@@ -103,7 +87,7 @@ function DockItem({ item, mouseX, activeSection, onClick, isMobile }: DockItemPr
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 6, scale: 0.92 }}
             transition={{ type: 'spring', stiffness: 450, damping: 28 }}
-            className="absolute -top-9 px-2.5 py-1 rounded-md bg-zinc-900/90 backdrop-blur-md text-[10px] font-mono tracking-wider text-zinc-200 border border-white/15 whitespace-nowrap shadow-lg pointer-events-none"
+            className="absolute -top-9 px-2.5 py-1 rounded-md bg-zinc-950/80 backdrop-blur-md text-[10px] font-mono tracking-wider text-zinc-200 border border-white/15 whitespace-nowrap shadow-lg pointer-events-none"
           >
             {item.label}
           </motion.div>
@@ -140,7 +124,6 @@ function DockItem({ item, mouseX, activeSection, onClick, isMobile }: DockItemPr
 export function MagneticDock({ visible = true }: MagneticDockProps) {
   const [activeSection, setActiveSection] = useState('inicio');
   const [isMobile, setIsMobile] = useState(false);
-  const [batSignalTriggered, setBatSignalTriggered] = useState(false);
   const mouseX = useMotionValue(Infinity);
 
   useEffect(() => {
@@ -180,64 +163,37 @@ export function MagneticDock({ visible = true }: MagneticDockProps) {
     }
   };
 
-  const handleToggleBatSignal = () => {
-    setBatSignalTriggered(prev => !prev);
-    window.dispatchEvent(new CustomEvent('toggle-bat-signal'));
-  };
-
   return (
     <AnimatePresence>
       {visible && (
-        <motion.nav
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 50, opacity: 0 }}
-          transition={{ delay: 0.5, type: 'spring', stiffness: 200, damping: 25 }}
-          role="navigation"
-          aria-label="Navegación principal"
-          className="fixed bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#0e0e11]/60 backdrop-blur-2xl backdrop-saturate-150 border border-white/[0.14] rounded-2xl md:rounded-3xl p-1.5 md:p-2 flex items-center gap-1.5 md:gap-2 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.85),0_0_20px_1px_rgba(255,255,255,0.06),inset_0_1px_1px_0_rgba(255,255,255,0.2)]"
-          onMouseMove={(e) => mouseX.set(e.clientX)}
-          onMouseLeave={() => mouseX.set(Infinity)}
-        >
-          {NAV_ITEMS.map((item) => (
-            <DockItem
-              key={item.id}
-              item={item}
-              mouseX={mouseX}
-              activeSection={activeSection}
-              onClick={handleClick}
-              isMobile={isMobile}
-            />
-          ))}
-
-          {/* Vertical Separator */}
-          <div className="w-px h-6 bg-white/[0.12] mx-0.5" />
-
-          {/* Batman Logo Action Button */}
-          <button
-            onClick={handleToggleBatSignal}
-            className={`w-9 h-9 md:w-11 md:h-11 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer group ${
-              batSignalTriggered
-                ? 'bg-white/25 text-white border border-white/30 shadow-[0_0_15px_rgba(255,255,255,0.25)]'
-                : 'text-zinc-400 hover:text-white hover:bg-white/[0.08]'
-            }`}
-            title="Activar Bat-Señal desde el Dock"
+        <div className="fixed bottom-4 md:bottom-6 inset-x-0 z-50 flex justify-center pointer-events-none">
+          <motion.nav
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 50, opacity: 0 }}
+            transition={{ delay: 0.5, type: 'spring', stiffness: 200, damping: 25 }}
+            role="navigation"
+            aria-label="Navegación principal"
+            className="pointer-events-auto bg-black/25 backdrop-blur-2xl backdrop-saturate-150 border border-white/[0.14] rounded-2xl md:rounded-3xl p-1.5 md:p-2 flex items-center justify-center gap-1.5 md:gap-2.5 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.7),0_0_20px_1px_rgba(255,255,255,0.04),inset_0_1px_1px_0_rgba(255,255,255,0.18)]"
+            onMouseMove={(e) => mouseX.set(e.clientX)}
+            onMouseLeave={() => mouseX.set(Infinity)}
           >
-            <BatLogoIcon className="w-5 h-auto text-zinc-300 group-hover:text-white group-hover:scale-110 transition-transform" />
-          </button>
-
-          {/* Quick Batmobile / Return to Top */}
-          <button
-            onClick={() => handleClick('secuencia')}
-            className="w-9 h-9 md:w-11 md:h-11 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/[0.08] transition-colors cursor-pointer group"
-            title="Batmóvil // Volver a la cima"
-          >
-            <BatmobileIcon className="w-5 h-auto text-zinc-400 group-hover:text-white group-hover:scale-110 transition-transform" />
-          </button>
-        </motion.nav>
+            {NAV_ITEMS.map((item) => (
+              <DockItem
+                key={item.id}
+                item={item}
+                mouseX={mouseX}
+                activeSection={activeSection}
+                onClick={handleClick}
+                isMobile={isMobile}
+              />
+            ))}
+          </motion.nav>
+        </div>
       )}
     </AnimatePresence>
   );
 }
 
 export default MagneticDock;
+
