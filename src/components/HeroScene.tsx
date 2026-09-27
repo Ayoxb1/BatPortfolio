@@ -390,8 +390,8 @@ export default function HeroScene({ animateIn = false }: HeroSceneProps) {
           <div className="w-5 h-5 rounded bg-white/10 border border-white/20 flex items-center justify-center">
             <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
           </div>
-          <span className="font-bold tracking-wider text-white">WAYNE ENTERPRISES</span>
-          <span className="text-zinc-500 hidden sm:inline">// APPLIED SCIENCES</span>
+          <span className="font-bold tracking-wider text-white">AYOUB ATIDI BELBAZ</span>
+          <span className="text-zinc-500 hidden sm:inline">// BATCOMPUTER CORE</span>
         </div>
 
         {/* Interactive Controls: Move Sphere & Title */}
@@ -419,7 +419,7 @@ export default function HeroScene({ animateIn = false }: HeroSceneProps) {
       />
 
       {/* Main Hero Content */}
-      <div ref={textRef} className="relative z-20 flex flex-col items-center text-center max-w-4xl mx-auto my-auto py-8">
+      <div ref={textRef} className="relative z-20 flex flex-col items-center text-center max-w-5xl mx-auto my-auto py-8">
         
         {/* Tactical Status Badge */}
         <div className="hero-badge mb-6">
@@ -430,12 +430,15 @@ export default function HeroScene({ animateIn = false }: HeroSceneProps) {
         </div>
 
         {/* Hero Name with Crisp White Typography */}
-        <h1 className="flex flex-wrap justify-center gap-x-4 md:gap-x-6 mb-4">
-          <span className="hero-title-part inline-block text-6xl md:text-8xl lg:text-9xl font-black tracking-[-0.04em] text-white glow-text">
+        <h1 className="flex flex-wrap justify-center items-center gap-x-3 sm:gap-x-5 md:gap-x-7 gap-y-1 mb-4">
+          <span className="hero-title-part inline-block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-[-0.04em] text-white glow-text">
             Ayoub
           </span>
-          <span className="hero-title-part inline-block text-6xl md:text-8xl lg:text-9xl font-black tracking-[-0.04em] text-zinc-300 glow-text">
+          <span className="hero-title-part inline-block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-[-0.04em] text-zinc-200 glow-text">
             Atidi
+          </span>
+          <span className="hero-title-part inline-block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-[-0.04em] text-zinc-400 glow-text">
+            Belbaz
           </span>
         </h1>
 
