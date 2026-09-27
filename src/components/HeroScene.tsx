@@ -17,34 +17,8 @@ export default function HeroScene({ animateIn = false }: HeroSceneProps) {
   const textRef = useRef<HTMLDivElement>(null);
   const threeGroupRef = useRef<THREE.Group | null>(null);
 
-  // Easter egg states
-  const [batSignalActive, setBatSignalActive] = useState(true); // Active by default as in the concept render
+  // Sphere position state
   const [spherePositionIndex, setSpherePositionIndex] = useState(0); // 0: Centro, 1: Derecha, 2: Izquierda, 3: Órbita Libre
-  const [batParallax, setBatParallax] = useState({ x: 0, y: 0, tilt: 0 });
-
-  // Listen to Bat-Signal toggle events from the Dock Batman icon
-  useEffect(() => {
-    const handleToggle = () => {
-      setBatSignalActive((prev) => !prev);
-    };
-    window.addEventListener('toggle-bat-signal', handleToggle);
-    return () => window.removeEventListener('toggle-bat-signal', handleToggle);
-  }, []);
-
-  // Parallax & Wing Banking for the central Gliding Bat
-  useEffect(() => {
-    const handleMouse = (e: MouseEvent) => {
-      const normX = (e.clientX / window.innerWidth) * 2 - 1;
-      const normY = (e.clientY / window.innerHeight) * 2 - 1;
-      setBatParallax({
-        x: normX * 30,
-        y: normY * 18,
-        tilt: normX * 7, // Subtle banking tilt
-      });
-    };
-    window.addEventListener('mousemove', handleMouse);
-    return () => window.removeEventListener('mousemove', handleMouse);
-  }, []);
 
   const positions = [
     { name: 'CENTRO', x: 0, y: 0, z: 0 },
@@ -355,91 +329,6 @@ export default function HeroScene({ animateIn = false }: HeroSceneProps) {
       className="relative min-h-screen overflow-hidden flex flex-col justify-between items-center batcave-grid px-4 pt-6 pb-12 select-none bg-black"
     >
 
-      {/* Bat-Signal Volumetric Sky Beam & Projection (Easter Egg) */}
-      {batSignalActive && (
-        <div className="absolute inset-0 z-10 pointer-events-none flex items-center justify-center overflow-hidden transition-opacity duration-1000">
-          {/* Volumetric Diagonal Light Beam reaching from the searchlight */}
-          <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.22)_0%,_rgba(255,255,255,0.06)_40%,_transparent_70%)] animate-pulse" />
-          
-          {/* Glowing Bat Insignia projected into the virtual Gotham sky */}
-          <div className="relative flex flex-col items-center justify-center animate-bounce">
-            <div className="w-56 h-56 md:w-80 md:h-80 rounded-full border-2 border-white/20 bg-white/5 backdrop-blur-sm flex items-center justify-center shadow-[0_0_140px_rgba(255,255,255,0.35)]">
-              {/* Batman Bat Silhouette */}
-              <svg 
-                viewBox="0 0 100 60" 
-                className="w-36 md:w-52 h-auto text-white drop-shadow-[0_0_24px_rgba(255,255,255,0.95)]" 
-                fill="currentColor"
-              >
-                <path d="M50 8 C48 14 44 19 38 18 C32 17 26 14 20 18 C14 22 10 32 6 36 C10 35 15 36 18 39 C15 42 12 47 10 52 C18 48 27 46 34 50 C36 44 41 38 50 42 C59 38 64 44 66 50 C73 46 82 48 90 52 C88 47 85 42 82 39 C85 36 90 35 94 36 C90 32 86 22 80 18 C74 14 68 17 62 18 C56 19 52 14 50 8 Z" />
-              </svg>
-            </div>
-            
-            <div className="mt-4 px-4 py-1.5 rounded-full bg-black/90 border border-white/30 text-white font-mono text-xs tracking-wider shadow-lg flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-white animate-ping" />
-              <span>ALERTA GOTHAM: BAT-SEÑAL ACTIVADA // BRUCE WAYNE ESTÁ EN CAMINO</span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Murciélago realista con alas desplegadas planeando en la zona central sobre la cuadrícula geométrica */}
-      <div
-        className="absolute top-[32%] sm:top-[34%] left-1/2 z-10 pointer-events-none w-[320px] sm:w-[480px] md:w-[640px] lg:w-[780px] max-w-full transition-transform duration-300 ease-out select-none"
-        style={{
-          transform: `translate(calc(-50% + ${batParallax.x}px), calc(-50% + ${batParallax.y}px)) rotate(${batParallax.tilt}deg)`,
-        }}
-      >
-        <div className="relative w-full aspect-[16/9] animate-bat-glide">
-          <img
-            src="/bat_gliding_real.webp"
-            alt="Murciélago con alas desplegadas planeando sobre el fondo de cuadrícula geométrica oscura"
-            className="w-full h-full object-contain mix-blend-screen opacity-90 drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
-            draggable={false}
-          />
-        </div>
-      </div>
-
-      {/* Bat-Señal Volumétrica Proyectada en el Cielo Nocturno (Esquina Superior Derecha) */}
-      <div className="hidden lg:flex flex-col items-end absolute top-20 right-8 z-30 pointer-events-auto">
-        <div
-          onClick={() => setBatSignalActive(!batSignalActive)}
-          className="group cursor-pointer rounded-xl border border-white/20 bg-[#0a0a0c]/85 backdrop-blur-xl p-2.5 transition-all duration-300 hover:border-white/40 shadow-[0_12px_32px_rgba(0,0,0,0.85)]"
-          title="Alternar Bat-Señal Volumétrica"
-        >
-          <div className="relative w-52 xl:w-60 h-30 xl:h-34 rounded-lg overflow-hidden border border-white/15 bg-zinc-950">
-            <img
-              src="/batsignal_projector.webp"
-              alt="Bat-Señal Proyector Volumétrico"
-              className={`w-full h-full object-cover transition-all duration-500 ${
-                batSignalActive ? 'brightness-110 contrast-125 saturate-110' : 'brightness-45 grayscale'
-              }`}
-            />
-            {batSignalActive && (
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/15 via-transparent to-transparent pointer-events-none animate-pulse" />
-            )}
-          </div>
-          <div className="mt-2.5 flex items-center justify-between px-1">
-            <span
-              className={`text-[10px] xl:text-[11px] font-mono tracking-widest font-bold flex items-center gap-2 ${
-                batSignalActive ? 'text-white' : 'text-zinc-500'
-              }`}
-            >
-              <span
-                className={`w-2 h-2 rounded-full ${
-                  batSignalActive
-                    ? 'bg-white shadow-[0_0_8px_white] animate-ping'
-                    : 'bg-zinc-700'
-                }`}
-              />
-              {batSignalActive ? '[BAT-SEÑAL: ACTIVA]' : '[BAT-SEÑAL: STANDBY]'}
-            </span>
-            <span className="text-[10px] font-mono text-zinc-500 group-hover:text-zinc-300">
-              {batSignalActive ? 'ONLINE' : 'STANDBY'}
-            </span>
-          </div>
-        </div>
-      </div>
-
       {/* Scanline CRT overlay */}
       <div className="absolute inset-0 scanlines opacity-20 pointer-events-none z-10" />
 
@@ -466,20 +355,17 @@ export default function HeroScene({ animateIn = false }: HeroSceneProps) {
         STATUS: ENCRYPTED // ONLINE
       </div>
 
-      {/* Top Batcomputer HUD Bar — Stealth Monochrome with Batman Easter Egg */}
+      {/* Top Batcomputer HUD Bar — Clean Stealth Technical */}
       <div className="hud-header relative z-20 w-full max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2 py-2.5 px-4 rounded-xl border border-white/10 bg-[#0c0c0c]/80 backdrop-blur-md text-[11px] font-mono text-zinc-300">
         <div className="flex items-center gap-2.5">
-          {/* Stylized Batman Batwing Logo */}
-          <div className="w-6 h-6 rounded bg-white/10 border border-white/20 flex items-center justify-center p-0.5">
-            <svg viewBox="0 0 100 60" className="w-5 h-auto text-white" fill="currentColor">
-              <path d="M50 8 C48 14 44 19 38 18 C32 17 26 14 20 18 C14 22 10 32 6 36 C10 35 15 36 18 39 C15 42 12 47 10 52 C18 48 27 46 34 50 C36 44 41 38 50 42 C59 38 64 44 66 50 C73 46 82 48 90 52 C88 47 85 42 82 39 C85 36 90 35 94 36 C90 32 86 22 80 18 C74 14 68 17 62 18 C56 19 52 14 50 8 Z" />
-            </svg>
+          <div className="w-5 h-5 rounded bg-white/10 border border-white/20 flex items-center justify-center">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
           </div>
           <span className="font-bold tracking-wider text-white">WAYNE ENTERPRISES</span>
           <span className="text-zinc-500 hidden sm:inline">// APPLIED SCIENCES</span>
         </div>
 
-        {/* Interactive Controls: Move Sphere & Bat-Signal Toggle */}
+        {/* Interactive Controls: Move Sphere & Title */}
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Mover la Bola 3D */}
           <button
@@ -491,21 +377,7 @@ export default function HeroScene({ animateIn = false }: HeroSceneProps) {
             <span className="text-zinc-400 font-bold">{positions[spherePositionIndex].name}</span>
           </button>
 
-          {/* Bat-Signal Toggle Button */}
-          <button
-            onClick={() => setBatSignalActive(!batSignalActive)}
-            className={`px-2.5 py-1 rounded border text-[10px] font-mono tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
-              batSignalActive
-                ? 'bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.6)] font-bold'
-                : 'bg-white/5 hover:bg-white/15 border-white/20 text-zinc-300'
-            }`}
-            title="Activar/Desactivar la Bat-Señal"
-          >
-            <span>🦇</span>
-            <span>{batSignalActive ? 'BAT-SEÑAL: ACTIVA' : 'BAT-SEÑAL'}</span>
-          </button>
-
-          <span className="text-xs px-2 py-0.5 rounded bg-white/10 border border-white/20 text-white font-medium hidden sm:inline">
+          <span className="text-xs px-2.5 py-0.5 rounded bg-white/10 border border-white/20 text-white font-medium hidden sm:inline">
             TÉCNICO DAM TITULADO
           </span>
         </div>
@@ -520,12 +392,10 @@ export default function HeroScene({ animateIn = false }: HeroSceneProps) {
       {/* Main Hero Content */}
       <div ref={textRef} className="relative z-20 flex flex-col items-center text-center max-w-4xl mx-auto my-auto py-8">
         
-        {/* Tactical Badge with Batwing Icon */}
+        {/* Tactical Status Badge */}
         <div className="hero-badge mb-6">
-          <span className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-white/15 bg-white/5 text-zinc-300 text-xs font-mono tracking-widest uppercase shadow-sm">
-            <svg viewBox="0 0 100 60" className="w-3.5 h-auto text-white" fill="currentColor">
-              <path d="M50 8 C48 14 44 19 38 18 C32 17 26 14 20 18 C14 22 10 32 6 36 C10 35 15 36 18 39 C15 42 12 47 10 52 C18 48 27 46 34 50 C36 44 41 38 50 42 C59 38 64 44 66 50 C73 46 82 48 90 52 C88 47 85 42 82 39 C85 36 90 35 94 36 C90 32 86 22 80 18 C74 14 68 17 62 18 C56 19 52 14 50 8 Z" />
-            </svg>
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/15 bg-white/5 text-zinc-300 text-xs font-mono tracking-widest uppercase shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
             SOFTWARE ARCHITECT & FULL STACK
           </span>
         </div>

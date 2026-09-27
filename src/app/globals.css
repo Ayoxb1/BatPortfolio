@@ -52,19 +52,6 @@ body {
   pointer-events: none;
 }
 
-/* ─── Bat Gliding Hover Physics ─────────────────────────────────────── */
-@keyframes batGlideFloat {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(1deg);
-  }
-}
-
-.animate-bat-glide {
-  animation: batGlideFloat 4.5s ease-in-out infinite;
-}
 
 /* ─── Custom Scrollbar — Dark Minimal ────────────────────────────── */
 ::-webkit-scrollbar {
