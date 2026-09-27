@@ -121,9 +121,7 @@ export default function About() {
         {/* Section Header — Monochrome */}
         <div className="about-header mb-16 md:mb-20">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/15 bg-white/5 text-zinc-300 text-xs font-mono tracking-widest uppercase mb-4">
-            <svg viewBox="0 0 100 60" className="w-3.5 h-auto text-white" fill="currentColor">
-              <path d="M50 8 C48 14 44 19 38 18 C32 17 26 14 20 18 C14 22 10 32 6 36 C10 35 15 36 18 39 C15 42 12 47 10 52 C18 48 27 46 34 50 C36 44 41 38 50 42 C59 38 64 44 66 50 C73 46 82 48 90 52 C88 47 85 42 82 39 C85 36 90 35 94 36 C90 32 86 22 80 18 C74 14 68 17 62 18 C56 19 52 14 50 8 Z" />
-            </svg>
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
             DOSSIER TÉCNICO // EXPEDIENTE PROFESIONAL
           </div>
 
