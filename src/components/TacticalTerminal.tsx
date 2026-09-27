@@ -143,7 +143,7 @@ export default function TacticalTerminal() {
             Línea editorial de streetwear de alta gama: siluetas oversize en algodón pesado 450 GSM, teñido reactivo en frío, prints cerámicos y bordados dorados.
           </p>
           <div className="text-zinc-400 text-[11px]">
-            <div>• 3D Garment Pipeline: Three.js WebGL shaders con simulación de caídas</div>
+            <div>• E-Commerce Architecture: Next.js App Router con catálogo editorial y diseño premium</div>
             <div>• Estética: Luxury Noir minimalista, tipografía cinemática brutalista</div>
           </div>
           <a

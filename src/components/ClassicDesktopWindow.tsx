@@ -10,7 +10,7 @@ interface ClassicDesktopWindowProps {
 export default function ClassicDesktopWindow({ onClose }: ClassicDesktopWindowProps) {
   const [activeTab, setActiveTab] = useState<'employees' | 'sql' | 'pool'>('employees');
   const [sqlQuery, setSqlQuery] = useState(
-    'SELECT emp_id, nombre, departamento, salario, estado_seguridad\nFROM empleados_dam\nWHERE activo = true AND nivel_acceso >= 3\nORDER BY emp_id ASC LIMIT 5;'
+    'SELECT dev_id, desarrollador, rol, combustible_mental, estado_seguridad\nFROM equipo_unipersonal_ayoub\nWHERE autor_del_codigo = true AND ganas_de_picar = \'INFINITAS\'\nORDER BY dev_id ASC;'
   );
   const [sqlExecuted, setSqlExecuted] = useState(false);
   const [queryExecutionTime, setQueryExecutionTime] = useState<number | null>(null);
@@ -89,7 +89,7 @@ export default function ClassicDesktopWindow({ onClose }: ClassicDesktopWindowPr
             }`}
           >
             <span>📋</span>
-            <span>Empleados (TableView)</span>
+            <span>Equipo (Solo Dev) (TableView)</span>
           </button>
           <button
             onClick={() => setActiveTab('sql')}
@@ -127,8 +127,8 @@ export default function ClassicDesktopWindow({ onClose }: ClassicDesktopWindowPr
           {activeTab === 'employees' && (
             <div className="space-y-3">
               <div className="flex items-center justify-between text-xs text-zinc-400">
-                <span>VISTA DE TABLA: org.ayoub.dam.model.Employee</span>
-                <span className="text-emerald-400">5 REGISTROS CARGADOS // AUTO-COMMIT: TRUE</span>
+                <span>VISTA DE TABLA: org.ayoub.dam.model.SoloDeveloper (100% Autoría Propia)</span>
+                <span className="text-emerald-400">5 ROLES POR AYOUB ATIDI // FULLSTACK SOLO ARCHITECT</span>
               </div>
 
               {/* Data Table */}
@@ -137,40 +137,47 @@ export default function ClassicDesktopWindow({ onClose }: ClassicDesktopWindowPr
                   <thead>
                     <tr className="bg-[#2b2d30] text-zinc-200 border-b border-[#3c3f41]">
                       <th className="p-2 border-r border-[#3c3f41]">ID</th>
-                      <th className="p-2 border-r border-[#3c3f41]">Nombre</th>
-                      <th className="p-2 border-r border-[#3c3f41]">Departamento</th>
-                      <th className="p-2 border-r border-[#3c3f41]">Salario</th>
+                      <th className="p-2 border-r border-[#3c3f41]">Desarrollador</th>
+                      <th className="p-2 border-r border-[#3c3f41]">Rol / Especialidad</th>
+                      <th className="p-2 border-r border-[#3c3f41]">Combustible / Salario Simbólico</th>
                       <th className="p-2">Nivel Seguridad</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr className="border-b border-[#2d3034] hover:bg-[#2e3136] transition-colors">
-                      <td className="p-2 border-r border-[#2d3034] text-zinc-400">EMP-101</td>
-                      <td className="p-2 border-r border-[#2d3034] text-white font-medium">Ayoub Atidi</td>
-                      <td className="p-2 border-r border-[#2d3034]">Lead Architecture</td>
-                      <td className="p-2 border-r border-[#2d3034] text-emerald-400">54,000 €</td>
+                      <td className="p-2 border-r border-[#2d3034] text-zinc-400">DEV-01</td>
+                      <td className="p-2 border-r border-[#2d3034] text-white font-medium">Ayoub Atidi Belbaz</td>
+                      <td className="p-2 border-r border-[#2d3034]">Lead Architecture & Java Core</td>
+                      <td className="p-2 border-r border-[#2d3034] text-amber-300 font-mono">☕ 14 Cafés espresso / día</td>
                       <td className="p-2"><span className="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 text-[10px]">NIVEL 5 (ROOT)</span></td>
                     </tr>
                     <tr className="border-b border-[#2d3034] hover:bg-[#2e3136] transition-colors">
-                      <td className="p-2 border-r border-[#2d3034] text-zinc-400">EMP-102</td>
-                      <td className="p-2 border-r border-[#2d3034] text-white font-medium">Bruce W.</td>
-                      <td className="p-2 border-r border-[#2d3034]">Security & Audit</td>
-                      <td className="p-2 border-r border-[#2d3034] text-emerald-400">88,000 €</td>
-                      <td className="p-2"><span className="px-1.5 py-0.5 rounded bg-purple-950 text-purple-400 text-[10px]">NIVEL 5 (ADMIN)</span></td>
+                      <td className="p-2 border-r border-[#2d3034] text-zinc-400">DEV-02</td>
+                      <td className="p-2 border-r border-[#2d3034] text-white font-medium">Ayoub Atidi Belbaz</td>
+                      <td className="p-2 border-r border-[#2d3034]">Backend & Transacciones JDBC</td>
+                      <td className="p-2 border-r border-[#2d3034] text-amber-300 font-mono">🍕 Pizza recalentada a las 4:00 AM</td>
+                      <td className="p-2"><span className="px-1.5 py-0.5 rounded bg-purple-950 text-purple-400 text-[10px]">NIVEL 5 (SUDO)</span></td>
                     </tr>
                     <tr className="border-b border-[#2d3034] hover:bg-[#2e3136] transition-colors">
-                      <td className="p-2 border-r border-[#2d3034] text-zinc-400">EMP-103</td>
-                      <td className="p-2 border-r border-[#2d3034] text-white font-medium">Elena Ramos</td>
-                      <td className="p-2 border-r border-[#2d3034]">Frontend Engineering</td>
-                      <td className="p-2 border-r border-[#2d3034] text-emerald-400">42,000 €</td>
-                      <td className="p-2"><span className="px-1.5 py-0.5 rounded bg-blue-950 text-blue-400 text-[10px]">NIVEL 3 (DEV)</span></td>
+                      <td className="p-2 border-r border-[#2d3034] text-zinc-400">DEV-03</td>
+                      <td className="p-2 border-r border-[#2d3034] text-white font-medium">Ayoub Atidi Belbaz</td>
+                      <td className="p-2 border-r border-[#2d3034]">Frontend & UI/UX Craftsman</td>
+                      <td className="p-2 border-r border-[#2d3034] text-amber-300 font-mono">🎧 Álbum de Drake en bucle 24/7</td>
+                      <td className="p-2"><span className="px-1.5 py-0.5 rounded bg-blue-950 text-blue-400 text-[10px]">NIVEL 5 (CREATOR)</span></td>
                     </tr>
                     <tr className="border-b border-[#2d3034] hover:bg-[#2e3136] transition-colors">
-                      <td className="p-2 border-r border-[#2d3034] text-zinc-400">EMP-104</td>
-                      <td className="p-2 border-r border-[#2d3034] text-white font-medium">Marcus Vance</td>
-                      <td className="p-2 border-r border-[#2d3034]">DevOps & Cloud</td>
-                      <td className="p-2 border-r border-[#2d3034] text-emerald-400">46,500 €</td>
-                      <td className="p-2"><span className="px-1.5 py-0.5 rounded bg-blue-950 text-blue-400 text-[10px]">NIVEL 4 (OPS)</span></td>
+                      <td className="p-2 border-r border-[#2d3034] text-zinc-400">DEV-04</td>
+                      <td className="p-2 border-r border-[#2d3034] text-white font-medium">Ayoub Atidi Belbaz</td>
+                      <td className="p-2 border-r border-[#2d3034]">DBA, DevOps & Cloud Deployer</td>
+                      <td className="p-2 border-r border-[#2d3034] text-emerald-300 font-mono">⚡ Dopamina al compilar a la 1ª</td>
+                      <td className="p-2"><span className="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 text-[10px]">NIVEL 5 (SYSADMIN)</span></td>
+                    </tr>
+                    <tr className="border-b border-[#2d3034] hover:bg-[#2e3136] transition-colors">
+                      <td className="p-2 border-r border-[#2d3034] text-zinc-400">DEV-05</td>
+                      <td className="p-2 border-r border-[#2d3034] text-white font-medium">Ayoub Atidi Belbaz</td>
+                      <td className="p-2 border-r border-[#2d3034]">El que arregla los bugs a deshoras</td>
+                      <td className="p-2 border-r border-[#2d3034] text-emerald-300 font-mono">🛡️ 0 warnings tras el build</td>
+                      <td className="p-2"><span className="px-1.5 py-0.5 rounded bg-amber-950 text-amber-400 text-[10px]">NIVEL 5 (SOLO HERO)</span></td>
                     </tr>
                   </tbody>
                 </table>
@@ -208,9 +215,9 @@ export default function ClassicDesktopWindow({ onClose }: ClassicDesktopWindowPr
 
               {sqlExecuted && (
                 <div className="p-3 bg-[#141517] border border-emerald-500/30 rounded text-xs space-y-1">
-                  <div className="text-emerald-400 font-bold">ResultSet [4 columnas, 5 filas devueltas]:</div>
+                  <div className="text-emerald-400 font-bold">ResultSet [5 columnas, 5 roles devueltos]:</div>
                   <div className="text-zinc-400 text-[11px]">
-                    Transacción confirmada en <code>jdbc:postgresql://localhost:5432/dam_suite</code>
+                    100% de autoría certificada: Todo el backend, SQL, JavaFX y JDBC fue programado íntegramente por Ayoub Atidi.
                   </div>
                 </div>
               )}
