@@ -63,10 +63,10 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       }
     }
 
-    // Safety fallback: guaranteed reveal after 11 seconds (video is 10s)
+    // Safety fallback: guaranteed reveal after 8 seconds (video is 7s)
     const safetyTimer = setTimeout(() => {
       finishIntro();
-    }, 11000);
+    }, 8000);
 
     return () => {
       clearTimeout(safetyTimer);
