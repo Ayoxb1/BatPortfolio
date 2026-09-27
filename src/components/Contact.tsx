@@ -11,13 +11,39 @@ import { onSectionNavigate } from '@/lib/navigation-event';
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    setStatus('loading');
+    setStatusMessage('');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setStatus('success');
+        setStatusMessage('¡Transmisión entregada con éxito! He recibido tus datos y te responderé en breve.');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => {
+          setStatus('idle');
+          setStatusMessage('');
+        }, 8000);
+      } else {
+        setStatus('error');
+        setStatusMessage(data.message || 'Error en la transmisión. Puedes pulsar abajo para enviar por email directo.');
+      }
+    } catch {
+      setStatus('error');
+      setStatusMessage('Fallo temporal de conexión. Puedes usar el botón de abajo para enviar tu mensaje directamente por Gmail/Correo.');
+    }
   };
 
   const contacts = [
@@ -290,21 +316,70 @@ export default function Contact() {
                   />
                 </div>
 
+                {status === 'success' && (
+                  <div className="p-4 rounded-xl border border-emerald-500/30 bg-emerald-950/20 text-emerald-400 text-xs font-mono flex items-start gap-3">
+                    <svg className="w-5 h-5 flex-shrink-0 text-emerald-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <div className="font-bold uppercase tracking-wider mb-1">✓ Transmisión Confirmada</div>
+                      <div>{statusMessage}</div>
+                    </div>
+                  </div>
+                )}
+
+                {status === 'error' && (
+                  <div className="p-4 rounded-xl border border-red-500/30 bg-red-950/20 text-red-400 text-xs font-mono flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                      <svg className="w-4 h-4 flex-shrink-0 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                      </svg>
+                      <span className="font-bold uppercase tracking-wider">{statusMessage}</span>
+                    </div>
+                    <a
+                      href={`mailto:ayoubatidi2019@gmail.com?subject=${encodeURIComponent(`Contacto Portfolio: ${formData.name || 'Consulta'}`)}&body=${encodeURIComponent(`${formData.message}\n\n---\nDe: ${formData.name} (${formData.email})`)}`}
+                      className="mt-1 inline-flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-white font-mono text-xs transition-colors"
+                    >
+                      <span>Abrir y enviar en tu cliente de correo (Gmail/Mail) ➔</span>
+                    </a>
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full btn-batcave cursor-pointer py-4"
+                  disabled={status === 'loading'}
+                  className="w-full btn-batcave cursor-pointer py-4 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {submitted ? (
+                  {status === 'loading' ? (
+                    <span className="flex items-center justify-center gap-2 text-black">
+                      <svg className="animate-spin w-4 h-4 text-black" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      <span>TRANSMITIENDO A LA BANDEJA DE AYOUB ATIDI...</span>
+                    </span>
+                  ) : status === 'success' ? (
                     <span className="flex items-center justify-center gap-2 text-black">
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                       </svg>
-                      ¡TRANSMISIÓN ENVIADA CON ÉXITO!
+                      <span>¡TRANSMISIÓN ENVIADA CON ÉXITO!</span>
                     </span>
                   ) : (
                     <span>ENVIAR TRANSMISIÓN ENCRIPTADA ➔</span>
                   )}
                 </button>
+
+                <div className="pt-2 text-center">
+                  <a
+                    href="mailto:ayoubatidi2019@gmail.com?subject=Contacto%20desde%20BatPortfolio"
+                    className="text-[11px] font-mono text-zinc-500 hover:text-zinc-200 transition-colors inline-flex items-center gap-1.5"
+                    title="Enviar mensaje directo vía tu cliente de correo favorito"
+                  >
+                    <span>❖ ¿Prefieres tu cliente de correo?</span>
+                    <span className="underline underline-offset-4 text-zinc-400 hover:text-white">Redactar a ayoubatidi2019@gmail.com ➔</span>
+                  </a>
+                </div>
               </form>
             </div>
           </div>

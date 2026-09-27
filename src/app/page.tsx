@@ -22,8 +22,8 @@ export default function Home() {
 
   return (
     <SmoothScroller>
-      {/* Preloader — blocks scroll and shows counter */}
-      <Preloader onComplete={() => setIsLoaded(true)} />
+      {/* Preloader — blocks scroll and shows counter, unmounts on complete */}
+      {!isLoaded && <Preloader onComplete={() => setIsLoaded(true)} />}
 
       {/* Dock — appears after preloader completes */}
       <MagneticDock visible={isLoaded} />
