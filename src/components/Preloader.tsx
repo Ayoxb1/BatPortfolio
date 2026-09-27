@@ -13,6 +13,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const wipeRef = useRef<HTMLDivElement>(null);
   const [counter, setCounter] = useState(0);
+  const [isVideoActive, setIsVideoActive] = useState(false);
   const isCompletedRef = useRef(false);
 
   // Finish preloader transition smoothly with GSAP
@@ -55,11 +56,19 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     if (vid) {
       vid.muted = true;
       vid.defaultMuted = true;
+      // Start video from the very beginning (0s) when entering the page
+      vid.currentTime = 0;
+      
       const playPromise = vid.play();
       if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Autoplay fallback in case browser policy restricts playback
-        });
+        playPromise
+          .then(() => {
+            setIsVideoActive(true);
+          })
+          .catch(() => {
+            // Autoplay fallback in case browser policy restricts playback
+            setIsVideoActive(true);
+          });
       }
     }
 
@@ -73,7 +82,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     };
   }, [finishIntro]);
 
-  // Track video playback time to synchronize percentage counter smoothly
+  // Track video playback time to synchronize percentage counter smoothly from 0% to 100%
   const handleTimeUpdate = () => {
     const vid = videoRef.current;
     if (!vid || !vid.duration) return;
@@ -94,9 +103,12 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         muted
         playsInline
         preload="auto"
+        onPlay={() => setIsVideoActive(true)}
         onTimeUpdate={handleTimeUpdate}
         onEnded={finishIntro}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
+        className={`absolute inset-0 w-full h-full object-cover pointer-events-none z-0 transition-opacity duration-300 ${
+          isVideoActive ? 'opacity-100' : 'opacity-0'
+        }`}
       />
 
       {/* 2. Tactical Vignette & Scanlines Overlays */}

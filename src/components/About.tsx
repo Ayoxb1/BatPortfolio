@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -146,8 +147,8 @@ export default function About() {
 
   return (
     <section
-      ref={sectionRef}
       id="sobre-mi"
+      ref={sectionRef}
       className="relative w-full py-28 md:py-36 px-4 md:px-8 overflow-hidden batcave-grid bg-black"
     >
       <div className="relative max-w-6xl mx-auto z-10">
@@ -159,41 +160,93 @@ export default function About() {
             DOSSIER TÉCNICO // EXPEDIENTE PROFESIONAL
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6 glow-text-subtle">
+          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-8 glow-text-subtle">
             Sobre Mí & Arsenal
           </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-zinc-300 text-base md:text-lg leading-relaxed">
-            <div className="lg:col-span-7 space-y-4">
-              <p>
-                Soy <span className="text-white font-semibold">Ayoub Atidi</span>, desarrollador Full Stack titulado como <strong className="text-white">Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)</strong>.
-              </p>
-              <p className="text-zinc-400">
-                Diseño y construyo soluciones tecnológicas integrales: desde arquitecturas SaaS multi-tenant y motores de escritorio con JavaFX hasta interfaces web modernas de alto impacto visual y rendimiento cinemático.
-              </p>
+          {/* Dossier Grid: Profile Photo + Bio + Telemetry Card */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            {/* Foto Oficial: Ayoub Atidi Belbaz (imagen-yo) */}
+            <div className="lg:col-span-4 w-full flex flex-col items-center">
+              <div className="relative w-full max-w-sm rounded-2xl overflow-hidden border border-white/20 bg-[#0d0d0d] shadow-[0_0_40px_rgba(255,255,255,0.06)] group hover:border-white/40 transition-all duration-300">
+                {/* HUD Camera Reticle overlay */}
+                <div className="absolute top-3 left-3 w-3 h-3 border-t-2 border-l-2 border-white/60 z-20 pointer-events-none" />
+                <div className="absolute top-3 right-3 w-3 h-3 border-t-2 border-r-2 border-white/60 z-20 pointer-events-none" />
+                <div className="absolute bottom-3 left-3 w-3 h-3 border-b-2 border-l-2 border-white/60 z-20 pointer-events-none" />
+                <div className="absolute bottom-3 right-3 w-3 h-3 border-b-2 border-r-2 border-white/60 z-20 pointer-events-none" />
+                
+                {/* Scanline CRT overlay */}
+                <div className="absolute inset-0 scanlines opacity-20 pointer-events-none z-10" />
+
+                {/* Status Badge */}
+                <div className="absolute top-3.5 left-3.5 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[10px] font-mono text-zinc-300 pointer-events-none">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>ID // AYOUB ATIDI</span>
+                </div>
+
+                {/* Aspect ratio container for portrait photo */}
+                <div className="relative w-full aspect-[4/5] overflow-hidden">
+                  <Image
+                    src="/imagen-yo.jpg"
+                    alt="Ayoub Atidi Belbaz - Desarrollador Full Stack & Técnico Superior DAM"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 380px"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    priority
+                  />
+                  {/* Subtle gradient shadow at bottom */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 pointer-events-none" />
+                </div>
+
+                {/* Footer caption */}
+                <div className="p-3.5 border-t border-white/10 bg-black/90 font-mono text-[11px] flex justify-between items-center text-zinc-400">
+                  <span className="text-white font-semibold tracking-wider">AYOUB ATIDI BELBAZ</span>
+                  <span className="text-zinc-500 text-[10px]">TÉCNICO DAM</span>
+                </div>
+              </div>
             </div>
 
-            <div className="lg:col-span-5 p-5 rounded-2xl border border-white/10 bg-[#0c0c0c] font-mono text-xs text-zinc-300 space-y-2">
-              <div className="text-zinc-500 uppercase tracking-widest border-b border-white/10 pb-2">
-                // TELEMETRÍA DE PERFIL
+            {/* Bio + Telemetry Data */}
+            <div className="lg:col-span-8 flex flex-col gap-6">
+              <div className="space-y-4 text-zinc-300 text-base md:text-lg leading-relaxed">
+                <p>
+                  Soy <span className="text-white font-semibold">Ayoub Atidi Belbaz</span>, desarrollador Full Stack titulado como <strong className="text-white">Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)</strong>.
+                </p>
+                <p className="text-zinc-400">
+                  Diseño y construyo soluciones tecnológicas integrales: desde arquitecturas SaaS multi-tenant y motores de escritorio con JavaFX hasta interfaces web modernas de alto impacto visual y rendimiento cinemático.
+                </p>
               </div>
-              <div className="flex justify-between">
-                <span className="text-zinc-400">ESPECIALIDAD:</span>
-                <span className="text-white">Full Stack & Multiplataforma</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-zinc-400">NIVEL EDUCATIVO:</span>
-                <span className="text-white font-bold">Técnico Superior DAM</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-zinc-400">ESTADO:</span>
-                <span className="text-emerald-400">DISPONIBLE // ACTIVO</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-zinc-400">STACK CENTRAL:</span>
-                <span className="text-white">Java, Next.js, TS, SQL</span>
+
+              {/* Telemetry card */}
+              <div className="p-5 rounded-2xl border border-white/10 bg-[#0c0c0c] font-mono text-xs text-zinc-300 space-y-2.5 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                <div className="text-zinc-500 uppercase tracking-widest border-b border-white/10 pb-2 flex items-center justify-between">
+                  <span>// TELEMETRÍA DE PERFIL</span>
+                  <span className="text-emerald-400 text-[10px]">VERIFICADO ●</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-white/5">
+                  <span className="text-zinc-400">DESARROLLADOR:</span>
+                  <span className="text-white font-bold">Ayoub Atidi Belbaz</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-white/5">
+                  <span className="text-zinc-400">ESPECIALIDAD:</span>
+                  <span className="text-white">Full Stack & Multiplataforma</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-white/5">
+                  <span className="text-zinc-400">NIVEL EDUCATIVO:</span>
+                  <span className="text-white font-bold">Técnico Superior DAM</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-white/5">
+                  <span className="text-zinc-400">ESTADO OPERATIVO:</span>
+                  <span className="text-emerald-400 font-semibold">DISPONIBLE // ACTIVO</span>
+                </div>
+                <div className="flex justify-between pt-1">
+                  <span className="text-zinc-400">STACK CENTRAL:</span>
+                  <span className="text-white font-medium">Java, Next.js, TS, SQL, Tailwind</span>
+                </div>
               </div>
             </div>
+
           </div>
         </div>
 
