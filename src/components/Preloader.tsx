@@ -2,96 +2,20 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 import { EASE_WIPE } from '@/lib/gsap-config';
 
 interface PreloaderProps {
   onComplete: () => void;
 }
 
-const TOTAL_FRAMES = 41;
-
 export default function Preloader({ onComplete }: PreloaderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const wipeRef = useRef<HTMLDivElement>(null);
   const [counter, setCounter] = useState(0);
-  const [isReady, setIsReady] = useState(false);
-
-  const imagesRef = useRef<HTMLImageElement[]>([]);
-  const currentFrameRef = useRef(0);
   const isCompletedRef = useRef(false);
 
-  // Responsive Canvas Drawing with Object-Fit Cover
-  const drawFrame = useCallback((frameIndex: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const img = imagesRef.current[frameIndex];
-    if (!img || !img.complete) return;
-
-    const cw = canvas.width;
-    const ch = canvas.height;
-    ctx.clearRect(0, 0, cw, ch);
-
-    // Calculate aspect ratios for responsive cover
-    const imgRatio = img.width / img.height;
-    const canvasRatio = cw / ch;
-
-    let drawW = cw;
-    let drawH = ch;
-    let offsetX = 0;
-    let offsetY = 0;
-
-    if (canvasRatio > imgRatio) {
-      drawH = cw / imgRatio;
-      offsetY = (ch - drawH) / 2;
-    } else {
-      drawW = ch * imgRatio;
-      offsetX = (cw - drawW) / 2;
-    }
-
-    ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
-  }, []);
-
-  // Resize canvas to match display resolution & DPR
-  const handleResize = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    drawFrame(currentFrameRef.current);
-  }, [drawFrame]);
-
-  // Preload all 41 bat animation frames
-  useEffect(() => {
-    let loadedCount = 0;
-    const imgs: HTMLImageElement[] = [];
-
-    for (let i = 1; i <= TOTAL_FRAMES; i++) {
-      const img = new Image();
-      const numStr = String(i).padStart(3, '0');
-      img.src = `/bat-intro/frame_${numStr}.webp`;
-      img.onload = () => {
-        loadedCount++;
-        if (loadedCount >= 10 && !isReady) {
-          setIsReady(true);
-        }
-      };
-      imgs.push(img);
-    }
-
-    imagesRef.current = imgs;
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [handleResize, isReady]);
-
-  // Finish preloader transition
+  // Finish preloader transition smoothly with GSAP
   const finishIntro = useCallback(() => {
     if (isCompletedRef.current) return;
     isCompletedRef.current = true;
@@ -122,50 +46,57 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       }, '+=0.1');
   }, [onComplete]);
 
-  // GSAP Automated Animation Loop
-  useGSAP(() => {
+  // Video playback & mobile-compatible autoplay handling
+  useEffect(() => {
     document.body.style.overflow = 'hidden';
     gsap.set(wipeRef.current, { yPercent: 100 });
 
-    const frameObj = { frame: 0 };
+    const vid = videoRef.current;
+    if (vid) {
+      vid.muted = true;
+      vid.defaultMuted = true;
+      const playPromise = vid.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay fallback in case browser policy restricts playback
+        });
+      }
+    }
 
-    const tl = gsap.timeline({
-      onComplete: finishIntro,
-    });
-
-    // Play automated bat flight sequence over 3.2 seconds
-    tl.to(frameObj, {
-      frame: TOTAL_FRAMES - 1,
-      duration: 3.2,
-      ease: 'power1.inOut',
-      onUpdate: () => {
-        const idx = Math.min(TOTAL_FRAMES - 1, Math.floor(frameObj.frame));
-        currentFrameRef.current = idx;
-        drawFrame(idx);
-        const percent = Math.min(100, Math.round((frameObj.frame / (TOTAL_FRAMES - 1)) * 100));
-        setCounter(percent);
-      },
-    });
-
-    // Safety fallback: guaranteed unblock after 4.5 seconds
+    // Safety fallback: guaranteed reveal after 11 seconds (video is 10s)
     const safetyTimer = setTimeout(() => {
       finishIntro();
-    }, 4500);
+    }, 11000);
 
     return () => {
       clearTimeout(safetyTimer);
     };
-  }, { scope: containerRef, dependencies: [finishIntro, drawFrame] });
+  }, [finishIntro]);
+
+  // Track video playback time to synchronize percentage counter smoothly
+  const handleTimeUpdate = () => {
+    const vid = videoRef.current;
+    if (!vid || !vid.duration) return;
+    const progress = Math.min(100, Math.floor((vid.currentTime / vid.duration) * 100));
+    setCounter(progress);
+  };
 
   return (
     <div
       ref={containerRef}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-between overflow-hidden bg-black select-none"
     >
-      {/* 1. Automated GSAP Bat Flight Canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none z-0 object-cover"
+      {/* 1. Ultra-Smooth 60fps Native Video (Batcave / Batayoub intro) */}
+      <video
+        ref={videoRef}
+        src="/bat-intro.mp4"
+        autoPlay
+        muted
+        playsInline
+        preload="auto"
+        onTimeUpdate={handleTimeUpdate}
+        onEnded={finishIntro}
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
       />
 
       {/* 2. Tactical Vignette & Scanlines Overlays */}
