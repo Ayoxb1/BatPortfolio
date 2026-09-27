@@ -181,8 +181,8 @@ export default function ScrollyCanvas({ frameCount = 90 }: ScrollyCanvasProps) {
             <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
               {/* Batman Batwing Icon */}
               <div className="w-6 h-6 rounded bg-white/10 border border-white/20 flex items-center justify-center p-0.5 flex-shrink-0">
-                <svg viewBox="0 0 100 60" className="w-4 h-auto text-white" fill="currentColor">
-                  <path d="M50 8 C48 14 44 19 38 18 C32 17 26 14 20 18 C14 22 10 32 6 36 C10 35 15 36 18 39 C15 42 12 47 10 52 C18 48 27 46 34 50 C36 44 41 38 50 42 C59 38 64 44 66 50 C73 46 82 48 90 52 C88 47 85 42 82 39 C85 36 90 35 94 36 C90 32 86 22 80 18 C74 14 68 17 62 18 C56 19 52 14 50 8 Z" />
+                <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
               </div>
               <span className="font-bold tracking-wider text-white truncate">AYOUB ATIDI</span>

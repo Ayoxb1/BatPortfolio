@@ -166,12 +166,30 @@ export default function ProjectsShowcase() {
       ref={containerRef} 
       className="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center batcave-grid bg-black"
     >
-      {/* Batcave Tactical Header — Monochrome with Batman Icon */}
+      {/* Floating Glowing GitHub Badge in Projects Section */}
+      <a
+        href="https://github.com/Ayoxb1"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute top-5 right-4 sm:top-8 sm:right-8 md:top-10 md:right-12 z-30 flex items-center gap-2.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-zinc-900/85 backdrop-blur-xl border border-white/25 hover:border-white/60 text-white shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_35px_rgba(255,255,255,0.45)] transition-all duration-300 hover:scale-105 cursor-pointer group"
+        title="Abrir perfil de GitHub de Ayoub Atidi"
+      >
+        <div className="relative flex items-center justify-center">
+          <span className="animate-ping absolute -inset-1 rounded-full bg-white/40 opacity-75" />
+          <svg className="relative w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+        </div>
+        <div className="flex flex-col text-left">
+          <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-wider text-white">GITHUB</span>
+          <span className="text-[8px] sm:text-[9px] font-mono text-zinc-400 group-hover:text-zinc-200">@Ayoxb1 ➔</span>
+        </div>
+      </a>
+
+      {/* Batcave Tactical Header */}
       <div className="section-header absolute top-6 md:top-10 z-20 flex flex-col items-center text-center px-4 will-change-transform">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/15 bg-white/5 text-zinc-300 text-[11px] font-mono tracking-widest uppercase mb-2">
-          <svg viewBox="0 0 100 60" className="w-3.5 h-auto text-white" fill="currentColor">
-            <path d="M50 8 C48 14 44 19 38 18 C32 17 26 14 20 18 C14 22 10 32 6 36 C10 35 15 36 18 39 C15 42 12 47 10 52 C18 48 27 46 34 50 C36 44 41 38 50 42 C59 38 64 44 66 50 C73 46 82 48 90 52 C88 47 85 42 82 39 C85 36 90 35 94 36 C90 32 86 22 80 18 C74 14 68 17 62 18 C56 19 52 14 50 8 Z" />
-          </svg>
+          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
           WAYNE_DATABASE // SECURE_ARCHIVE
         </div>
         <h2 className="text-2xl md:text-4xl font-black text-white tracking-tight glow-text-subtle">
@@ -200,9 +218,7 @@ export default function ProjectsShowcase() {
               {/* Card Terminal Header */}
               <div className="relative z-10 flex items-center justify-between pb-3 mb-5 border-b border-white/10 text-[11px] font-mono text-zinc-400">
                 <span className="flex items-center gap-2 tracking-wider">
-                  <svg viewBox="0 0 100 60" className="w-3.5 h-auto text-white" fill="currentColor">
-                    <path d="M50 8 C48 14 44 19 38 18 C32 17 26 14 20 18 C14 22 10 32 6 36 C10 35 15 36 18 39 C15 42 12 47 10 52 C18 48 27 46 34 50 C36 44 41 38 50 42 C59 38 64 44 66 50 C73 46 82 48 90 52 C88 47 85 42 82 39 C85 36 90 35 94 36 C90 32 86 22 80 18 C74 14 68 17 62 18 C56 19 52 14 50 8 Z" />
-                  </svg>
+                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
                   {project.code}
                 </span>
                 <div className="flex items-center gap-2">
@@ -242,18 +258,31 @@ export default function ProjectsShowcase() {
                     ))}
                   </div>
 
-                  {/* Primary CTA Button */}
-                  <div className="flex items-center gap-3">
+                  {/* Primary CTA Buttons */}
+                  <div className="flex flex-wrap items-center gap-3">
                     <a 
                       href={project.link} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="btn-batcave group text-xs md:text-sm py-2 px-4"
+                      className="btn-batcave group text-xs md:text-sm py-2 px-4 shadow-[0_0_15px_rgba(255,255,255,0.15)] cursor-pointer"
                     >
                       <span>Acceder a la Web</span>
                       <svg className="w-3.5 h-3.5 text-black group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
+                    </a>
+
+                    <a 
+                      href={project.link.includes('github.com') ? project.link : 'https://github.com/Ayoxb1'}
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="btn-batcave-ghost group text-xs md:text-sm py-2 px-3.5 flex items-center gap-2 hover:border-white/40 hover:bg-white/10 shadow-[0_0_15px_rgba(255,255,255,0.08)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] transition-all cursor-pointer"
+                      title="Ver repositorio y código fuente en GitHub"
+                    >
+                      <svg className="w-4 h-4 text-white group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+                      </svg>
+                      <span>Código GitHub</span>
                     </a>
                   </div>
                 </div>
