@@ -20,17 +20,61 @@ export default function Contact() {
     setStatusMessage('');
 
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      // Tier 1: Try internal Next.js API route
+      let delivered = false;
+      let feedback = '';
 
-      const data = await res.json();
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
 
-      if (data.success) {
+        const raw = await res.text();
+        let data: any = {};
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          data = { success: res.ok };
+        }
+
+        if (res.ok && (data.success || data.needsActivation !== undefined)) {
+          delivered = true;
+          feedback = '¡Transmisión entregada con éxito! He recibido tus datos y te responderé en breve.';
+        }
+      } catch {
+        delivered = false;
+      }
+
+      // Tier 2: If server route failed, submit directly via client-side FormSubmit AJAX
+      if (!delivered) {
+        try {
+          const clientFormData = new FormData();
+          clientFormData.append('name', formData.name);
+          clientFormData.append('email', formData.email);
+          clientFormData.append('message', formData.message);
+          clientFormData.append('_subject', `[BatPortfolio] Mensaje de ${formData.name}`);
+          clientFormData.append('_captcha', 'false');
+
+          const clientRes = await fetch('https://formsubmit.co/ajax/ayoubatidi2019@gmail.com', {
+            method: 'POST',
+            body: clientFormData,
+            headers: { Accept: 'application/json' },
+          });
+
+          if (clientRes.ok) {
+            delivered = true;
+            feedback = '¡Transmisión enviada directamente a la bandeja de Ayoub Atidi con éxito!';
+          }
+        } catch {
+          delivered = false;
+        }
+      }
+
+      if (delivered) {
         setStatus('success');
-        setStatusMessage('¡Transmisión entregada con éxito! He recibido tus datos y te responderé en breve.');
+        setStatusMessage(feedback || '¡Transmisión entregada con éxito! He recibido tus datos y te responderé en breve.');
         setFormData({ name: '', email: '', message: '' });
         setTimeout(() => {
           setStatus('idle');
@@ -38,7 +82,7 @@ export default function Contact() {
         }, 8000);
       } else {
         setStatus('error');
-        setStatusMessage(data.message || 'Error en la transmisión. Puedes pulsar abajo para enviar por email directo.');
+        setStatusMessage('Error en el canal satelital. Haz clic en el botón de abajo para enviar tu mensaje pre-rellenado directamente por correo.');
       }
     } catch {
       setStatus('error');
